@@ -97,20 +97,20 @@ def process_subfolder(subfolder_name):
     time.sleep(INTERVAL_BETWEEN_PHASES)
 
     # 2. Phase 2 実行（動画解析）
-    if not run_phase_script("phase2_video_analysis.py", subfolder_path):
-        print("⚠️ Phase 2で中断したため、処理を停止します。")
-        return
-    print(f"☕ APIウェイト: {INTERVAL_BETWEEN_PHASES}秒待機中...")
-    time.sleep(INTERVAL_BETWEEN_PHASES)
+    #if not run_phase_script("phase2_video_analysis.py", subfolder_path):
+    #    print("⚠️ Phase 2で中断したため、処理を停止します。")
+    #    return
+    #print(f"☕ APIウェイト: {INTERVAL_BETWEEN_PHASES}秒待機中...")
+    #time.sleep(INTERVAL_BETWEEN_PHASES)
 
     # 3. Phase 3 実行（統合）
-    if not run_phase_script("phase3_alignment_graph.py", subfolder_path):
-        print("⚠️ Phase 3で中断したため、処理を停止します。")
-        return
+    #if not run_phase_script("phase3_alignment_graph.py", subfolder_path):
+    #    print("⚠️ Phase 3で中断したため、処理を停止します。")
+    #    return
 
-    print("\n" + "=" * 80)
-    print(f"🎉 🎉 【完全完了】 {subfolder_name} の Phase 0 〜 Phase 3 が正常に完了しました！")
-    print("=" * 80 + "\n")
+    #print("\n" + "=" * 80)
+    #print(f"🎉 🎉 【完全完了】 {subfolder_name} の Phase 0 〜 Phase 3 が正常に完了しました！")
+    #print("=" * 80 + "\n")
     
     # 🔔 バッチ完了のポップアップ通知と音を発火
     show_completion_notification(subfolder_name)
