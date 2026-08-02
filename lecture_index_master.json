@@ -1,0 +1,422 @@
+{
+  "01-1": {
+    "lecture_num": "1",
+    "lecture_title": "式の計算と展開",
+    "part_num": "1",
+    "part_title": "単項式と多項式",
+    "bundle_name": "第1講 式の計算と展開 PART1 単項式と多項式"
+  },
+  "01-2": {
+    "lecture_num": "1",
+    "lecture_title": "式の計算と展開",
+    "part_num": "2",
+    "part_title": "整式の整理",
+    "bundle_name": "第1講 式の計算と展開 PART2 整式の整理"
+  },
+  "01-3": {
+    "lecture_num": "1",
+    "lecture_title": "式の計算と展開",
+    "part_num": "3",
+    "part_title": "整式の加法と減法，乗法",
+    "bundle_name": "第1講 式の計算と展開 PART3 整式の加法と減法，乗法"
+  },
+  "01-4": {
+    "lecture_num": "1",
+    "lecture_title": "式の計算と展開",
+    "part_num": "4",
+    "part_title": "展開",
+    "bundle_name": "第1講 式の計算と展開 PART4 展開"
+  },
+  "02-1": {
+    "lecture_num": "2",
+    "lecture_title": "因数分解",
+    "part_num": "1",
+    "part_title": "共通因数",
+    "bundle_name": "第2講 因数分解 PART1 共通因数"
+  },
+  "02-2": {
+    "lecture_num": "2",
+    "lecture_title": "因数分解",
+    "part_num": "2",
+    "part_title": "因数分解の公式",
+    "bundle_name": "第2講 因数分解 PART2 因数分解の公式"
+  },
+  "02-3": {
+    "lecture_num": "2",
+    "lecture_title": "因数分解",
+    "part_num": "3",
+    "part_title": "たすきがけによる因数分解",
+    "bundle_name": "第2講 因数分解 PART3 たすきがけによる因数分解"
+  },
+  "02-4": {
+    "lecture_num": "2",
+    "lecture_title": "因数分解",
+    "part_num": "4",
+    "part_title": "いろいろな因数分解",
+    "bundle_name": "第2講 因数分解 PART4 いろいろな因数分解"
+  },
+  "03-1": {
+    "lecture_num": "3",
+    "lecture_title": "実数",
+    "part_num": "1",
+    "part_title": "実数",
+    "bundle_name": "第3講 実数 PART1 実数"
+  },
+  "03-2": {
+    "lecture_num": "3",
+    "lecture_title": "実数",
+    "part_num": "2",
+    "part_title": "絶対値",
+    "bundle_name": "第3講 実数 PART2 絶対値"
+  },
+  "03-3": {
+    "lecture_num": "3",
+    "lecture_title": "実数",
+    "part_num": "3",
+    "part_title": "根号を含む式の計算",
+    "bundle_name": "第3講 実数 PART3 根号を含む式の計算"
+  },
+  "04-1": {
+    "lecture_num": "4",
+    "lecture_title": "1次不等式",
+    "part_num": "1",
+    "part_title": "1次不等式とその解き方",
+    "bundle_name": "第4講 1次不等式 PART1 1次不等式とその解き方"
+  },
+  "04-2": {
+    "lecture_num": "4",
+    "lecture_title": "1次不等式",
+    "part_num": "2",
+    "part_title": "いろいろな1次不等式",
+    "bundle_name": "第4講 1次不等式 PART2 いろいろな1次不等式"
+  },
+  "04-3": {
+    "lecture_num": "4",
+    "lecture_title": "1次不等式",
+    "part_num": "3",
+    "part_title": "絶対値を含む方程式・不等式",
+    "bundle_name": "第4講 1次不等式 PART3 絶対値を含む方程式・不等式"
+  },
+  "05-1": {
+    "lecture_num": "5",
+    "lecture_title": "集合，命題と条件",
+    "part_num": "1",
+    "part_title": "集合と要素，部分集合",
+    "bundle_name": "第5講 集合，命題と条件 PART1 集合と要素，部分集合"
+  },
+  "05-2": {
+    "lecture_num": "5",
+    "lecture_title": "集合，命題と条件",
+    "part_num": "2",
+    "part_title": "共通部分と和集合，全体集合と補集合",
+    "bundle_name": "第5講 集合，命題と条件 PART2 共通部分と和集合，全体集合と補集合"
+  },
+  "05-3": {
+    "lecture_num": "5",
+    "lecture_title": "集合，命題と条件",
+    "part_num": "3",
+    "part_title": "命題と条件",
+    "bundle_name": "第5講 集合，命題と条件 PART3 命題と条件"
+  },
+  "05-4": {
+    "lecture_num": "5",
+    "lecture_title": "集合，命題と条件",
+    "part_num": "4",
+    "part_title": "必要条件と十分条件，条件の否定",
+    "bundle_name": "第5講 集合，命題と条件 PART4 必要条件と十分条件，条件の否定"
+  },
+  "06-1": {
+    "lecture_num": "6",
+    "lecture_title": "命題と論証",
+    "part_num": "1",
+    "part_title": "逆・裏・対偶",
+    "bundle_name": "第6講 命題と論証 PART1 逆・裏・対偶"
+  },
+  "06-2": {
+    "lecture_num": "6",
+    "lecture_title": "命題と論証",
+    "part_num": "2",
+    "part_title": "命題と証明",
+    "bundle_name": "第6講 命題と論証 PART2 命題と証明"
+  },
+  "07-1": {
+    "lecture_num": "7",
+    "lecture_title": "2次関数とグラフ",
+    "part_num": "1",
+    "part_title": "関数とその表し方",
+    "bundle_name": "第7講 2次関数とグラフ PART1 関数とその表し方"
+  },
+  "07-2": {
+    "lecture_num": "7",
+    "lecture_title": "2次関数とグラフ",
+    "part_num": "2",
+    "part_title": "1次関数のグラフと最大値，最小値",
+    "bundle_name": "第7講 2次関数とグラフ PART2 1次関数のグラフと最大値，最小値"
+  },
+  "07-3": {
+    "lecture_num": "7",
+    "lecture_title": "2次関数とグラフ",
+    "part_num": "3",
+    "part_title": "$y=ax^2+q$ のグラフ，$y=a(x-p)^2$ のグラフ",
+    "bundle_name": "第7講 2次関数とグラフ PART3 $y=ax^2+q$ のグラフ，$y=a(x-p)^2$ のグラフ"
+  },
+  "07-4": {
+    "lecture_num": "7",
+    "lecture_title": "2次関数とグラフ",
+    "part_num": "4",
+    "part_title": "$y=a(x-p)^2+q$ のグラフ",
+    "bundle_name": "第7講 2次関数とグラフ PART4 $y=a(x-p)^2+q$ のグラフ"
+  },
+  "07-5": {
+    "lecture_num": "7",
+    "lecture_title": "2次関数とグラフ",
+    "part_num": "5",
+    "part_title": "平方完成と $y=ax^2+bx+c$ のグラフ",
+    "bundle_name": "第7講 2次関数とグラフ PART5 平方完成と $y=ax^2+bx+c$ のグラフ"
+  },
+  "07-6": {
+    "lecture_num": "7",
+    "lecture_title": "2次関数とグラフ",
+    "part_num": "6",
+    "part_title": "放物線の平行移動",
+    "bundle_name": "第7講 2次関数とグラフ PART6 放物線の平行移動"
+  },
+  "08-1": {
+    "lecture_num": "8",
+    "lecture_title": "2次関数の最大・最小，2次関数の決定",
+    "part_num": "1",
+    "part_title": "2次関数の最大・最小",
+    "bundle_name": "第8講 2次関数の最大・最小，2次関数の決定 PART1 2次関数の最大・最小"
+  },
+  "08-2": {
+    "lecture_num": "8",
+    "lecture_title": "2次関数の最大・最小，2次関数の決定",
+    "part_num": "2",
+    "part_title": "定義域が限られた2次関数の最大・最小",
+    "bundle_name": "第8講 2次関数の最大・最小，2次関数の決定 PART2 定義域が限られた2次関数の最大・最小"
+  },
+  "08-3": {
+    "lecture_num": "8",
+    "lecture_title": "2次関数の最大・最小，2次関数の決定",
+    "part_num": "3",
+    "part_title": "2次関数の決定",
+    "bundle_name": "第8講 2次関数の最大・最小，2次関数の決定 PART3 2次関数の決定"
+  },
+  "09-1": {
+    "lecture_num": "9",
+    "lecture_title": "2次方程式",
+    "part_num": "1",
+    "part_title": "2次方程式の解法",
+    "bundle_name": "第9講 2次方程式 PART1 2次方程式の解法"
+  },
+  "09-2": {
+    "lecture_num": "9",
+    "lecture_title": "2次方程式",
+    "part_num": "2",
+    "part_title": "2次方程式の実数解の個数",
+    "bundle_name": "第9講 2次方程式 PART2 2次方程式の実数解の個数"
+  },
+  "09-3": {
+    "lecture_num": "9",
+    "lecture_title": "2次方程式",
+    "part_num": "3",
+    "part_title": "2次関数のグラフと $x$ 軸の共有点の座標",
+    "bundle_name": "第9講 2次方程式 PART3 2次関数のグラフと $x$ 軸の共有点の座標"
+  },
+  "09-4": {
+    "lecture_num": "9",
+    "lecture_title": "2次方程式",
+    "part_num": "4",
+    "part_title": "2次関数のグラフと $x$ 軸の位置関係",
+    "bundle_name": "第9講 2次方程式 PART4 2次関数のグラフと $x$ 軸の位置関係"
+  },
+  "10-1": {
+    "lecture_num": "10",
+    "lecture_title": "2次不等式",
+    "part_num": "1",
+    "part_title": "2次不等式と2次関数のグラフ",
+    "bundle_name": "第10講 2次不等式 PART1 2次不等式と2次関数のグラフ"
+  },
+  "10-2": {
+    "lecture_num": "10",
+    "lecture_title": "2次不等式",
+    "part_num": "2",
+    "part_title": "2次不等式（グラフが接するとき）",
+    "bundle_name": "第10講 2次不等式 PART2 2次不等式（グラフが接するとき）"
+  },
+  "10-3": {
+    "lecture_num": "10",
+    "lecture_title": "2次不等式",
+    "part_num": "3",
+    "part_title": "2次不等式（グラフが共有点をもたないとき）",
+    "bundle_name": "第10講 2次不等式 PART3 2次不等式（グラフが共有点をもたないとき）"
+  },
+  "10-4": {
+    "lecture_num": "10",
+    "lecture_title": "2次不等式",
+    "part_num": "4",
+    "part_title": "2次不等式の利用",
+    "bundle_name": "第10講 2次不等式 PART4 2次不等式の利用"
+  },
+  "11-1": {
+    "lecture_num": "11",
+    "lecture_title": "鋭角の三角比",
+    "part_num": "1",
+    "part_title": "直角三角形と三角比",
+    "bundle_name": "第11講 鋭角の三角比 PART1 直角三角形と三角比"
+  },
+  "11-2": {
+    "lecture_num": "11",
+    "lecture_title": "鋭角の三角比",
+    "part_num": "2",
+    "part_title": "有名角の三角比，三角比の表",
+    "bundle_name": "第11講 鋭角の三角比 PART2 有名角の三角比，三角比の表"
+  },
+  "11-3": {
+    "lecture_num": "11",
+    "lecture_title": "鋭角の三角比",
+    "part_num": "3",
+    "part_title": "三角比の利用",
+    "bundle_name": "第11講 鋭角の三角比 PART3 三角比の利用"
+  },
+  "11-4": {
+    "lecture_num": "11",
+    "lecture_title": "鋭角の三角比",
+    "part_num": "4",
+    "part_title": "三角比の相互関係",
+    "bundle_name": "第11講 鋭角の三角比 PART4 三角比の相互関係"
+  },
+  "11-5": {
+    "lecture_num": "11",
+    "lecture_title": "鋭角の三角比",
+    "part_num": "5",
+    "part_title": "$90^\\circ-\\theta$ の三角比",
+    "bundle_name": "第11講 鋭角の三角比 PART5 $90^\\circ-\\theta$ の三角比"
+  },
+  "12-1": {
+    "lecture_num": "12",
+    "lecture_title": "三角比の拡張",
+    "part_num": "1",
+    "part_title": "座標を用いた三角比の定義",
+    "bundle_name": "第12講 三角比の拡張 PART1 座標を用いた三角比の定義"
+  },
+  "12-2": {
+    "lecture_num": "12",
+    "lecture_title": "三角比の拡張",
+    "part_num": "2",
+    "part_title": "単位円を用いた三角比の定義",
+    "bundle_name": "第12講 三角比の拡張 PART2 単位円を用いた三角比の定義"
+  },
+  "12-3": {
+    "lecture_num": "12",
+    "lecture_title": "三角比の拡張",
+    "part_num": "3",
+    "part_title": "三角比の値と角",
+    "bundle_name": "第12講 三角比の拡張 PART3 三角比の値と角"
+  },
+  "12-4": {
+    "lecture_num": "12",
+    "lecture_title": "三角比の拡張",
+    "part_num": "4",
+    "part_title": "$180^\\circ-\\theta$ の三角比，単位円と三角比の相互関係",
+    "bundle_name": "第12講 三角比の拡張 PART4 $180^\\circ-\\theta$ の三角比，単位円と三角比の相互関係"
+  },
+  "13-1": {
+    "lecture_num": "13",
+    "lecture_title": "正弦定理・余弦定理",
+    "part_num": "1",
+    "part_title": "正弦定理",
+    "bundle_name": "第13講 正弦定理・余弦定理 PART1 正弦定理"
+  },
+  "13-2": {
+    "lecture_num": "13",
+    "lecture_title": "正弦定理・余弦定理",
+    "part_num": "2",
+    "part_title": "余弦定理",
+    "bundle_name": "第13講 正弦定理・余弦定理 PART2 余弦定理"
+  },
+  "13-3": {
+    "lecture_num": "13",
+    "lecture_title": "正弦定理・余弦定理",
+    "part_num": "3",
+    "part_title": "余弦定理の利用",
+    "bundle_name": "第13講 正弦定理・余弦定理 PART3 余弦定理の利用"
+  },
+  "13-4": {
+    "lecture_num": "13",
+    "lecture_title": "正弦定理・余弦定理",
+    "part_num": "4",
+    "part_title": "三角形の決定",
+    "bundle_name": "第13講 正弦定理・余弦定理 PART4 三角形の決定"
+  },
+  "14-1": {
+    "lecture_num": "14",
+    "lecture_title": "図形の計量",
+    "part_num": "1",
+    "part_title": "三角形の面積",
+    "bundle_name": "第14講 図形の計量 PART1 三角形の面積"
+  },
+  "14-2": {
+    "lecture_num": "14",
+    "lecture_title": "図形の計量",
+    "part_num": "2",
+    "part_title": "三角形の内接円と面積",
+    "bundle_name": "第14講 図形の計量 PART2 三角形の内接円と面積"
+  },
+  "14-3": {
+    "lecture_num": "14",
+    "lecture_title": "図形の計量",
+    "part_num": "3",
+    "part_title": "四角形の面積",
+    "bundle_name": "第14講 図形の計量 PART3 四角形の面積"
+  },
+  "14-4": {
+    "lecture_num": "14",
+    "lecture_title": "図形の計量",
+    "part_num": "4",
+    "part_title": "空間図形への応用",
+    "bundle_name": "第14講 図形の計量 PART4 空間図形への応用"
+  },
+  "15-1": {
+    "lecture_num": "15",
+    "lecture_title": "データの分析",
+    "part_num": "1",
+    "part_title": "データの整理と代表値",
+    "bundle_name": "第15講 データの分析 PART1 データの整理と代表値"
+  },
+  "15-2": {
+    "lecture_num": "15",
+    "lecture_title": "データの分析",
+    "part_num": "2",
+    "part_title": "データの散らばり",
+    "bundle_name": "第15講 データの分析 PART2 データの散らばり"
+  },
+  "15-3": {
+    "lecture_num": "15",
+    "lecture_title": "データの分析",
+    "part_num": "3",
+    "part_title": "分散と標準偏差",
+    "bundle_name": "第15講 データの分析 PART3 分散と標準偏差"
+  },
+  "15-4": {
+    "lecture_num": "15",
+    "lecture_title": "データの分析",
+    "part_num": "4",
+    "part_title": "データの相関",
+    "bundle_name": "第15講 データの分析 PART4 データの相関"
+  },
+  "15-5": {
+    "lecture_num": "15",
+    "lecture_title": "データの分析",
+    "part_num": "5",
+    "part_title": "外れ値",
+    "bundle_name": "第15講 データの分析 PART5 外れ値"
+  },
+  "15-6": {
+    "lecture_num": "15",
+    "lecture_title": "データの分析",
+    "part_num": "6",
+    "part_title": "仮説検定",
+    "bundle_name": "第15講 データの分析 PART6 仮説検定"
+  }
+}

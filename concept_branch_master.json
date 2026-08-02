@@ -1,0 +1,884 @@
+{
+  "8451503110000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "単項式の係数と次数"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "多項式の項・定数項・次数・整式"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "同類項のまとめ・整式の整理"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "多項式と項・定数項・次数"
+    },
+    {
+      "branch_code": "_005",
+      "concept_name": "多項式の項と次数"
+    },
+    {
+      "branch_code": "_006",
+      "concept_name": "多項式と整式"
+    }
+  ],
+  "8451503122000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "特定の文字に着目した単項式の係数と次数"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "特定の文字に着目した多項式の次数と定数項"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "降べきの順による整理"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "特定の文字に着目した整式の整理"
+    },
+    {
+      "branch_code": "_005",
+      "concept_name": "置き換えを利用した式の展開"
+    },
+    {
+      "branch_code": "_006",
+      "concept_name": "多項式（かたまり）を共通因数とする因数分解"
+    },
+    {
+      "branch_code": "_007",
+      "concept_name": "１文字整理による因数分解"
+    },
+    {
+      "branch_code": "_008",
+      "concept_name": "1文字整理による因数分解"
+    },
+    {
+      "branch_code": "_009",
+      "concept_name": "多項式の共通因数とおき換え"
+    },
+    {
+      "branch_code": "_010",
+      "concept_name": "多項式（1つのかたまり）を共通因数とするくくり出し"
+    },
+    {
+      "branch_code": "_011",
+      "concept_name": "最低次の文字についての整理（1文字整理）"
+    },
+    {
+      "branch_code": "_012",
+      "concept_name": "特定の文字に着目した単項式の処理"
+    },
+    {
+      "branch_code": "_013",
+      "concept_name": "特定の文字に着目した多項式の整理"
+    },
+    {
+      "branch_code": "_014",
+      "concept_name": "A < B < C 型の不等式の解法"
+    },
+    {
+      "branch_code": "_015",
+      "concept_name": "置き換えを利用した絶対値を含む方程式・不等式の解法"
+    },
+    {
+      "branch_code": "_016",
+      "concept_name": "特定の文字に着目した単項式の分析"
+    },
+    {
+      "branch_code": "_017",
+      "concept_name": "特定の文字に着目した多項式の分析"
+    },
+    {
+      "branch_code": "_018",
+      "concept_name": "特定の文字に着目した整理"
+    },
+    {
+      "branch_code": "_019",
+      "concept_name": "置き換えを利用した展開"
+    },
+    {
+      "branch_code": "_020",
+      "concept_name": "おき換えによる式の展開の工夫"
+    },
+    {
+      "branch_code": "_021",
+      "concept_name": "多項式のかたまり（おき換え）による共通因数のくくり出し"
+    },
+    {
+      "branch_code": "_022",
+      "concept_name": "1文字整理（最低次数の文字に着目）"
+    },
+    {
+      "branch_code": "_023",
+      "concept_name": "2次方程式の解の公式による解法"
+    },
+    {
+      "branch_code": "_024",
+      "concept_name": "2次方程式の解の公式（xの係数が偶数の場合）による解法"
+    }
+  ],
+  "8451503113000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "整式の加法と減法"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "累乗と指数法則"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "整式の乗法（分配法則）"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "整式の展開の定義"
+    },
+    {
+      "branch_code": "_005",
+      "concept_name": "基本の展開公式"
+    },
+    {
+      "branch_code": "_006",
+      "concept_name": "一次の係数が付く展開公式"
+    },
+    {
+      "branch_code": "_007",
+      "concept_name": "因数分解の定義"
+    },
+    {
+      "branch_code": "_008",
+      "concept_name": "共通因数による因数分解"
+    },
+    {
+      "branch_code": "_009",
+      "concept_name": "平画の公式を利用した因数分解"
+    },
+    {
+      "branch_code": "_010",
+      "concept_name": "平方の差の公式を利用した因数分解"
+    },
+    {
+      "branch_code": "_011",
+      "concept_name": "2次式の因数分解の公式"
+    },
+    {
+      "branch_code": "_012",
+      "concept_name": "共通因数のくくりだしと公式の併用"
+    },
+    {
+      "branch_code": "_013",
+      "concept_name": "たすきがけによる因数分解"
+    },
+    {
+      "branch_code": "_014",
+      "concept_name": "2変数の2次式のたすきがけによる因数分解"
+    },
+    {
+      "branch_code": "_015",
+      "concept_name": "おき換えによる因数分解"
+    },
+    {
+      "branch_code": "_016",
+      "concept_name": "置き換えによる因数分解"
+    },
+    {
+      "branch_code": "_017",
+      "concept_name": "乗法公式を利用した根号を含む式の計算"
+    },
+    {
+      "branch_code": "_018",
+      "concept_name": "因数分解の定義と因数"
+    },
+    {
+      "branch_code": "_019",
+      "concept_name": "因数と因数分解の定義"
+    },
+    {
+      "branch_code": "_020",
+      "concept_name": "平方公式を利用した因数分解"
+    },
+    {
+      "branch_code": "_021",
+      "concept_name": "和と積を利用した因数分解"
+    },
+    {
+      "branch_code": "_022",
+      "concept_name": "共通因数を先にくくる因数分解"
+    },
+    {
+      "branch_code": "_023",
+      "concept_name": "共通因数によるくくり出し"
+    },
+    {
+      "branch_code": "_024",
+      "concept_name": "完全平方式の因数分解"
+    },
+    {
+      "branch_code": "_025",
+      "concept_name": "平方の差の因数分解"
+    },
+    {
+      "branch_code": "_026",
+      "concept_name": "二次式の因数分解 x^2+(a+b)x+ab"
+    },
+    {
+      "branch_code": "_027",
+      "concept_name": "完全平方の因数分解"
+    },
+    {
+      "branch_code": "_028",
+      "concept_name": "二次三項式の因数分解"
+    },
+    {
+      "branch_code": "_029",
+      "concept_name": "平方・平方の差の公式を利用した因数分解"
+    },
+    {
+      "branch_code": "_030",
+      "concept_name": "2次三項式 x^2 + (a+b)x + ab の因数分解"
+    },
+    {
+      "branch_code": "_031",
+      "concept_name": "たすきがけによる2次式の因数分解（1変数）"
+    },
+    {
+      "branch_code": "_032",
+      "concept_name": "たすきがけによる2変数2次式の因数分解"
+    },
+    {
+      "branch_code": "_033",
+      "concept_name": "おき換えを利用した因数分解"
+    },
+    {
+      "branch_code": "_034",
+      "concept_name": "複2次式の因数分解"
+    },
+    {
+      "branch_code": "_035",
+      "concept_name": "整式の展開"
+    },
+    {
+      "branch_code": "_036",
+      "concept_name": "二次の展開の公式"
+    },
+    {
+      "branch_code": "_037",
+      "concept_name": "(ax+b)(cx+d)の展開公式"
+    },
+    {
+      "branch_code": "_038",
+      "concept_name": "単項式の係数と次数"
+    },
+    {
+      "branch_code": "_039",
+      "concept_name": "多項式の構造（項・定数項・次数）"
+    },
+    {
+      "branch_code": "_040",
+      "concept_name": "同類項と整式の整理"
+    },
+    {
+      "branch_code": "_041",
+      "concept_name": "降べきの順"
+    },
+    {
+      "branch_code": "_042",
+      "concept_name": "整式の乗法と分配法則"
+    },
+    {
+      "branch_code": "_043",
+      "concept_name": "整式の展開（分配法則の適用）"
+    },
+    {
+      "branch_code": "_044",
+      "concept_name": "基本の展開公式の利用"
+    },
+    {
+      "branch_code": "_045",
+      "concept_name": "一次の係数が1でない展開公式の利用"
+    },
+    {
+      "branch_code": "_046",
+      "concept_name": "整式の展開（分配法則による展開）"
+    },
+    {
+      "branch_code": "_047",
+      "concept_name": "共通因数（単項式）のくくり出し"
+    },
+    {
+      "branch_code": "_048",
+      "concept_name": "完全平方の因数分解公式の適用"
+    },
+    {
+      "branch_code": "_049",
+      "concept_name": "平方の差の因数分解公式の適用"
+    },
+    {
+      "branch_code": "_050",
+      "concept_name": "和と積に着目した2次式の因数分解"
+    },
+    {
+      "branch_code": "_051",
+      "concept_name": "共通因数の括り出しと公式の併用"
+    },
+    {
+      "branch_code": "_052",
+      "concept_name": "因数分解の公式 acx^2+(ad+bc)x+bd=(ax+b)(cx+d)"
+    },
+    {
+      "branch_code": "_053",
+      "concept_name": "たすきがけによる因数分解の手順"
+    },
+    {
+      "branch_code": "_054",
+      "concept_name": "2文字を含む2次式のたすきがけ"
+    },
+    {
+      "branch_code": "_055",
+      "concept_name": "複2次式（x^2=Xのおき換え）の因数分解"
+    },
+    {
+      "branch_code": "_056",
+      "concept_name": "因数分解による2次方程式の解法"
+    }
+  ],
+  "8451505200000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "有理数と循環小数"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "循環小数の分数表示"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "分数の小数表示と循環小数"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "循環小数を分数で表す方法"
+    }
+  ],
+  "8451503111000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "実数と無理数"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "数の集合と四則計算の閉鎖性"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "実数の絶対値とその性質"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "数直線上の2点間の距離"
+    },
+    {
+      "branch_code": "_005",
+      "concept_name": "平方根の定義と性質"
+    },
+    {
+      "branch_code": "_006",
+      "concept_name": "平方根の積と商"
+    },
+    {
+      "branch_code": "_007",
+      "concept_name": "分母の有理化"
+    },
+    {
+      "branch_code": "_008",
+      "concept_name": "実数の分類と無理数"
+    },
+    {
+      "branch_code": "_009",
+      "concept_name": "数の集合と四則計算の可能性"
+    },
+    {
+      "branch_code": "_010",
+      "concept_name": "絶対値の定義と性質"
+    },
+    {
+      "branch_code": "_011",
+      "concept_name": "根号を含む式の絶対値の解除"
+    },
+    {
+      "branch_code": "_012",
+      "concept_name": "平方根の積と商の計算"
+    },
+    {
+      "branch_code": "_013",
+      "concept_name": "乗法公式を利用した根号を含む式の展開"
+    },
+    {
+      "branch_code": "_014",
+      "concept_name": "有理数・無理数と実数の分類"
+    },
+    {
+      "branch_code": "_015",
+      "concept_name": "分数を循環小数で表す方法"
+    },
+    {
+      "branch_code": "_016",
+      "concept_name": "循環小数を分数で表す方法"
+    },
+    {
+      "branch_code": "_017",
+      "concept_name": "数系の四則計算における閉じ性"
+    },
+    {
+      "branch_code": "_018",
+      "concept_name": "有理数と小数の分類（有限小数・循環小数）"
+    },
+    {
+      "branch_code": "_019",
+      "concept_name": "実数と無理数の分類"
+    },
+    {
+      "branch_code": "_020",
+      "concept_name": "数体系（自然数・整数・有理数・実数）における四則計算の可能性"
+    },
+    {
+      "branch_code": "_021",
+      "concept_name": "有理数と実数の分類（数概念の体系）"
+    },
+    {
+      "branch_code": "_022",
+      "concept_name": "分数を循環小数で表す"
+    },
+    {
+      "branch_code": "_023",
+      "concept_name": "循環小数を分数で表す"
+    },
+    {
+      "branch_code": "_024",
+      "concept_name": "数体系と四則計算の閉じ方"
+    },
+    {
+      "branch_code": "_025",
+      "concept_name": "有理数と循環小数"
+    },
+    {
+      "branch_code": "_026",
+      "concept_name": "絶対値の性質と絶対値の計算"
+    },
+    {
+      "branch_code": "_027",
+      "concept_name": "乗法公式を利用した根号を含む式の計算"
+    },
+    {
+      "branch_code": "_028",
+      "concept_name": "平方根による2次方程式の解法"
+    }
+  ],
+  "8451503114000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "不等式の意味と不等号（<, >, ≦, ≧）"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "不等式の基本性質と不等号の向きの変化"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "不等式の解と移項による1次不等式の解法"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "かっこ・小数・分数を含む1次不等式の解法"
+    },
+    {
+      "branch_code": "_005",
+      "concept_name": "不等式の解の数直線表示"
+    },
+    {
+      "branch_code": "_006",
+      "concept_name": "不等式と不等号の意味"
+    },
+    {
+      "branch_code": "_007",
+      "concept_name": "不等式の性質と不等号の向きの変化"
+    },
+    {
+      "branch_code": "_008",
+      "concept_name": "1次不等式の解と移項"
+    },
+    {
+      "branch_code": "_009",
+      "concept_name": "連立不等式の解法"
+    },
+    {
+      "branch_code": "_010",
+      "concept_name": "絶対値の図形的意味（距離）"
+    },
+    {
+      "branch_code": "_011",
+      "concept_name": "絶対値を含む基本方程式の解法"
+    },
+    {
+      "branch_code": "_012",
+      "concept_name": "絶対値を含む基本不等式の解法"
+    },
+    {
+      "branch_code": "_013",
+      "concept_name": "不等式と不等号の基本"
+    },
+    {
+      "branch_code": "_014",
+      "concept_name": "不等式の基本性質（加法・減法・正の数の乗除）"
+    },
+    {
+      "branch_code": "_015",
+      "concept_name": "負の数の乗除による不等号の向きの反転"
+    },
+    {
+      "branch_code": "_016",
+      "concept_name": "1次不等式の基本解法と移項"
+    },
+    {
+      "branch_code": "_017",
+      "concept_name": "A<B<Cの形の不等式の解法"
+    },
+    {
+      "branch_code": "_018",
+      "concept_name": "絶対値の意味と数直線上の距離"
+    },
+    {
+      "branch_code": "_019",
+      "concept_name": "絶対値を含む方程式の解法（|x|=c, |x+a|=c）"
+    },
+    {
+      "branch_code": "_020",
+      "concept_name": "絶対値を含む不等式の解法（|x|<c, |x+a|<c）"
+    },
+    {
+      "branch_code": "_021",
+      "concept_name": "絶対値を含む不等式の解法（|x|>c, |x+a|>c）"
+    },
+    {
+      "branch_code": "_022",
+      "concept_name": "1次不等式と1次関数のグラフの関係"
+    }
+  ],
+  "8451503124000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "1次不等式の利用（文章題）"
+    }
+  ],
+  "8451503112000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "集合と要素"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "集合の表し方"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "部分集合と包含関係"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "空集合"
+    },
+    {
+      "branch_code": "_005",
+      "concept_name": "共通部分と和集合"
+    },
+    {
+      "branch_code": "_006",
+      "concept_name": "ベン図"
+    },
+    {
+      "branch_code": "_007",
+      "concept_name": "全体集合と補集合"
+    },
+    {
+      "branch_code": "_008",
+      "concept_name": "ド・モルガンの法則"
+    },
+    {
+      "branch_code": "_009",
+      "concept_name": "有限集合と無限集合"
+    },
+    {
+      "branch_code": "_010",
+      "concept_name": "集合の相等"
+    },
+    {
+      "branch_code": "_011",
+      "concept_name": "集合と要素（属する・属さない）"
+    },
+    {
+      "branch_code": "_012",
+      "concept_name": "集合の表し方（要素並べ上げ法・条件記述法）"
+    },
+    {
+      "branch_code": "_013",
+      "concept_name": "集合の等号"
+    },
+    {
+      "branch_code": "_014",
+      "concept_name": "空集合とその性質"
+    },
+    {
+      "branch_code": "_015",
+      "concept_name": "ベン図による集合の整理"
+    },
+    {
+      "branch_code": "_016",
+      "concept_name": "ベン図を用いた集合の整理"
+    },
+    {
+      "branch_code": "_017",
+      "concept_name": "命題とその真偽"
+    },
+    {
+      "branch_code": "_018",
+      "concept_name": "条件と命題（仮定と結論）"
+    },
+    {
+      "branch_code": "_019",
+      "concept_name": "十分条件・必要条件の判定"
+    },
+    {
+      "branch_code": "_020",
+      "concept_name": "必要十分条件と同値"
+    },
+    {
+      "branch_code": "_021",
+      "concept_name": "条件の否定"
+    },
+    {
+      "branch_code": "_022",
+      "concept_name": "「かつ」「または」を含む条件の否定（ド・モルガンの法則の適用）"
+    },
+    {
+      "branch_code": "_023",
+      "concept_name": "命題の逆・裏・対偶の作成"
+    },
+    {
+      "branch_code": "_024",
+      "concept_name": "命題と対偶の真偽の一致"
+    },
+    {
+      "branch_code": "_025",
+      "concept_name": "命題の逆と裏の真偽の一致"
+    }
+  ],
+  "8451503121000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "集合による命題の真偽と反例"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "対偶を利用する証明"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "背理法による証明"
+    }
+  ],
+  "8451503311000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "関数の表し方と関数の値"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "関数の定義域と値域"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "座標平面と象限の定義"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "1次関数 y=ax+b のグラフの作図と特徴"
+    },
+    {
+      "branch_code": "_005",
+      "concept_name": "2次関数の定義と放物線の基本（軸・頂点・凸の向き）"
+    },
+    {
+      "branch_code": "_006",
+      "concept_name": "$y=ax^2+q$ のグラフと $y$ 軸方向の平行移動"
+    },
+    {
+      "branch_code": "_007",
+      "concept_name": "$y=a(x-p)^2$ のグラフと $x$ 軸方向の平行移動"
+    },
+    {
+      "branch_code": "_008",
+      "concept_name": "2次関数 y=ax^2 のグラフの特徴"
+    },
+    {
+      "branch_code": "_009",
+      "concept_name": "y=ax^2+q のグラフ（y軸方向の平行移動）"
+    },
+    {
+      "branch_code": "_010",
+      "concept_name": "y=a(x-p)^2 のグラフ（x軸方向の平行移動）"
+    },
+    {
+      "branch_code": "_011",
+      "concept_name": "2次関数の定義と $y=ax^2$ のグラフの特徴（軸、頂点、凸性）"
+    },
+    {
+      "branch_code": "_012",
+      "concept_name": "2次関数 $y=a(x-p)^2+q$ のグラフの特徴（平行移動・軸・頂点）"
+    },
+    {
+      "branch_code": "_013",
+      "concept_name": "2次関数 $y=a(x-p)^2+q$ のグラフの描画手順"
+    },
+    {
+      "branch_code": "_014",
+      "concept_name": "$x^2$ の係数が1の2次関数の平方完成"
+    },
+    {
+      "branch_code": "_015",
+      "concept_name": "$x^2$ の係数が1以外の2次関数の平方完成"
+    },
+    {
+      "branch_code": "_016",
+      "concept_name": "一般形から標準形への変形による2次関数のグラフ描画"
+    },
+    {
+      "branch_code": "_017",
+      "concept_name": "放物線の平行移動（指定された移動量から移動後の方程式を求める計算）"
+    },
+    {
+      "branch_code": "_018",
+      "concept_name": "放物線の平行移動（2つの放物線から移動量を求める計算）"
+    },
+    {
+      "branch_code": "_019",
+      "concept_name": "頂点や軸の条件からの2次関数の決定"
+    },
+    {
+      "branch_code": "_020",
+      "concept_name": "通る3点からの2次関数の決定"
+    }
+  ],
+  "8451503322000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "図形問題における関数の立式と定義域の決定"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "2次関数の最大・最小の文章題（実生活への活用）"
+    }
+  ],
+  "8451503312000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "定義域の端点に着目した1次関数の値域および最大値・最小値の決定"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "標準形の2次関数の最大・最小"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "一般形の2次関数の平方完成による最大・最小"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "定義域に制限がある2次関数の最大・最小"
+    }
+  ],
+  "8451503313000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "判別式による2次方程式の実数解の個数の判定"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "判別式の簡略公式 (D/4)"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "2次方程式が実数解をもつ条件"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "関数のグラフと $x$ 軸の共一点の座標"
+    },
+    {
+      "branch_code": "_005",
+      "concept_name": "2次関数のグラフと $x$ 軸の共一点の座標"
+    },
+    {
+      "branch_code": "_006",
+      "concept_name": "2次関数のグラフとx軸の位置関係と判別式の符号"
+    },
+    {
+      "branch_code": "_007",
+      "concept_name": "判別式を用いた定数の値の範囲の決定"
+    },
+    {
+      "branch_code": "_008",
+      "concept_name": "2次不等式の解法（グラフがx軸と異なる2点で交わるとき）"
+    },
+    {
+      "branch_code": "_009",
+      "concept_name": "2次不等式におけるx^2の係数が負のときの変形"
+    },
+    {
+      "branch_code": "_010",
+      "concept_name": "グラフが $x$ 軸と接する2次不等式（$> 0$ の場合）"
+    },
+    {
+      "branch_code": "_011",
+      "concept_name": "グラフが $x$ 軸と接する2次不等式（$\\geqq 0$ の場合）"
+    },
+    {
+      "branch_code": "_012",
+      "concept_name": "グラフが $x$ 軸と接する2次不等式（$< 0$ の場合）"
+    },
+    {
+      "branch_code": "_013",
+      "concept_name": "グラフが $x$ 軸と接する2次不等式（$\\leqq 0$ の場合）"
+    },
+    {
+      "branch_code": "_014",
+      "concept_name": "判別式を用いたx軸と共地点をもたない2次不等式の解法（a > 0）"
+    },
+    {
+      "branch_code": "_015",
+      "concept_name": "平方完成を用いた共地点をもたない2次不等式の判定"
+    },
+    {
+      "branch_code": "_016",
+      "concept_name": "最高次の係数が負である2次不等式の整理と解法"
+    },
+    {
+      "branch_code": "_017",
+      "concept_name": "2次関数のグラフとx軸が共有点をもつ条件"
+    },
+    {
+      "branch_code": "_018",
+      "concept_name": "絶対不等式（解がすべての実数となる2次不等式の条件）"
+    },
+    {
+      "branch_code": "_019",
+      "concept_name": "2次不等式を含む連立不等式の解法"
+    }
+  ]
+}
