@@ -107,8 +107,13 @@ def generate_logs():
             
             # 🔗 【GNN-KT連動】本物の前提知識ネットワークに基づく連鎖エラー処理
             for prereq in prerequisites:
-                p_name = prereq.get("concept_name")
-                p_type = prereq.get("dependency_type", "mandatory")
+                # 💡 辞書型（Ver 12.0新形式）と文字列型（旧形式）の混在を安全に処理
+                if isinstance(prereq, dict):
+                    p_name = prereq.get("concept_name")
+                    p_type = prereq.get("dependency_type", "mandatory")
+                else:
+                    p_name = str(prereq)
+                    p_type = "mandatory" # 単なる文字列の場合は安全のため「必須前提」として処理
                 
                 # DB内に存在する前提知識のIDを取得
                 p_id = name_to_id.get(p_name)
@@ -126,7 +131,7 @@ def generate_logs():
             
             # ログレコードの作成
             log_record = {
-                "log_id": f"LOG_{student['student_id']}_{c_id[-8:]}", # ID末尾だけ利用して短くする
+                "log_id": f"LOG_{student['student_id']}_{c_id[-8:]}", 
                 "student_id": student['student_id'],
                 "global_c_id": c_id,
                 "concept_name": node.get("concept_name", ""),
