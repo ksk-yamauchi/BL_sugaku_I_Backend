@@ -118,7 +118,7 @@ def detect_video_role(vtt_content, video_name, textbook_content=""):
 
 2. `exercise_walkthrough` (例題演習)
    - 教材内の具体的な「大問」「確認問題」「問題」（例: 大問1、次の二次不等式を解け 等）の計算手順・解法解説を行っている場合。「例」の解答解説は含みません。
-　 - 🌟【判定の最優先ルール】字幕の冒頭や途中で「大問○番目を見ていきましょう」「問題○」といった発言があり、教材テキストに掲載されている具体問題の解法を解説している場合は、冒頭で「Point Pickup」などの公式おさらいをしていても、必ず `exercise_walkthrough` に分類してください。
+  - 🌟【判定の最優先ルール】字幕の冒頭や途中で「大問○番目を見ていきましょう」「問題○」といった発言があり、教材テキストに掲載されている具体問題の解法を解説している場合は、冒頭で「Point Pickup」などの公式おさらいをしていても、必ず `exercise_walkthrough` に分類してください。
 
 3. `concept_application` (概念の応用・利用)
    - すでに学習した概念や公式を利用して、「例」において、文章題や図形問題などの「応用問題」（例: ○○の利用など）を解き、知識の活用方法を解説している場合。
@@ -156,7 +156,7 @@ def detect_video_role(vtt_content, video_name, textbook_content=""):
 # 🏁 メイン実行パイプライン
 # =========================================================
 def main():
-    print(f"=== 🎬 [Phase 2 Ver 2.5] 教材MD連動・大問検知強化版 起動 ===")
+    print(f"=== 🎬 [Phase 2 Ver 2.5.1] 教材MD連動・大問検知強化版 起動 ===")
 
     with open(TEXTBOOK_MD_PATH, "r", encoding="utf-8") as f:
         textbook_content = f.read()
@@ -204,7 +204,6 @@ def main():
         if role == "concept_lecture":
             granularity_instruction = "【概念理解特化・極細分割】: 1〜3分単位のミクロな解説ステップ（公式の導入、意味、証明、注意点など）を細かく分割してください。"
         else:
-            # exercise_walkthrough と concept_application はこちら
             granularity_instruction = "【問題解説特化・超極細ステップ分割】: 各小問の計算の途中経過、数十秒〜1、2分単位の微細な計算ステップ（立式、変形、答えの確認など）ごとに徹底的に細かくセグメントを細分化してください。"
 
         prompt = f"""動画のタイムラインを解析し、詳細なチャプター（セグメント）を作成してください。
@@ -214,7 +213,7 @@ def main():
 - 各セグメントの開始時間（`start_time`）と終了時間（`end_time`）を MM:SS 形式で正確に記録してください。
 
 【★最重要：黒板・スライドのLaTeX書き起こし (blackboard_ocr)★】
-- 動画内の黒板、ホワイトボード、スライドに書かれている数式・文字・図の情報を読み取り、`blackboard_ocr` 項目へLaTeX形式（$ ... $ または $$ ... $$）で正確に書き起こしてください。
+- 動画内の黒板、ホワイトボード、スライドに書かれている数式・文字・図の情報を読み取り、`blackboard_ocr` 項目へLaTeX形式（$...$ または $$...$$）で正確に書き起こしてください。
 
 【出力ルール】
 1. 日本語出力
@@ -268,8 +267,8 @@ def main():
                     print(f"  ├─ ✂️ 末尾のノイズセグメントを自動カット: '{last_seg.get('topic')}'")
                     segments.pop(-1)
 
-        # 5. トピック名の正規化処理 (🌟 応用問題も例題フォーマットを適用)
-        if role in ["exercise_walkthrough", "concept_application"]:
+        # 5. トピック名の正規化処理 (🌟 例題のみに適用)
+        if role == "exercise_walkthrough":
             current_shomon = ""
             current_edamon = ""
             for seg in segments:
@@ -308,8 +307,7 @@ def main():
                 parts.append(cleaned_topic)
 
                 seg["topic"] = " ".join(parts)
-        else:
-            print("  ├─ 💡 概念講義と判定されたため、トピック名の強制上書きはスキップします。")
+            print("  ├─ 💡 例題と判定されたため、トピック名の上書きを行いました。")
 
         all_video_maps.append({
             "video_file": os.path.basename(mp4_path),
@@ -327,7 +325,7 @@ def main():
         time.sleep(3)
 
     output_data = {
-        "engine_version": "2.5_role_detection_textbook_sync",
+        "engine_version": "2.5.1_role_detection_textbook_sync",
         "videos": all_video_maps
     }
 
