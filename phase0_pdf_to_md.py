@@ -6,10 +6,6 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-# =========================================================
-# ⚙️ 設定・初期化 (.env 対応)
-# =========================================================
-# 親フォルダの .env を読み込む
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
 API_KEY = os.environ.get("GEMINI_API_KEY")
 
@@ -17,14 +13,12 @@ if not API_KEY:
     raise ValueError("❌ .env ファイルに GEMINI_API_KEY が設定されていません。")
 
 client = genai.Client(api_key=API_KEY)
-# PDF解析には精度の高い 3.6-flash を使用
 MODEL_ID = "gemini-3.6-flash"
 
 def main():
-    print("=== 📄 [Phase 0] PDF to Markdown 変換処理開始 ===")
+    print("=== 📄 [Phase 0 Ver 1.0] PDF to Markdown 変換処理開始 ===")
     print("   💡 [強化版] レイアウト構造化 ＋ 図形の自動言語化 を有効化")
     
-    # フォルダ内のPDFを検索
     pdf_files = glob("*.pdf")
     if not pdf_files:
         print("   ⚠️ PDFファイルが見つかりません。Phase 0 をスキップします。")
@@ -34,12 +28,10 @@ def main():
     base_name = os.path.splitext(os.path.basename(pdf_path))[0]
     md_filename = f"{base_name}_clean.md"
 
-    # 🌟 API節約ガード: すでに変換済みMDがあればスキップ
     if os.path.exists(md_filename):
         print(f"   ✅ 既に {md_filename} が存在します。API枠節約のため変換をスキップします。")
         return
 
-    # 🛡️ HTTPヘッダー文字コードエラー回避用の一時ファイルを作成（ASCII文字のみ）
     temp_pdf_path = "temp_processing_file.pdf"
     shutil.copy(pdf_path, temp_pdf_path)
 
@@ -47,10 +39,8 @@ def main():
         print(f"   ⬆️ PDFファイルをアップロード中: {pdf_path}")
         uploaded_file = client.files.upload(file=temp_pdf_path)
 
-        # 処理完了を待機
         print("   ⏳ Google側のPDF処理完了を待機しています...")
         while uploaded_file.state.name == "PROCESSING":
-            print("      ... 処理中 ...")
             time.sleep(5)
             uploaded_file = client.files.get(name=uploaded_file.name)
 
@@ -99,19 +89,16 @@ PDF内にグラフ、ベン図、幾何図形、数直線、統計グラフな�
   - 散布図：点の分布傾向（右上がり＝正の相関、右下がり＝負の相関）
   - 記述例: `[図の説明: 強い負の相関（右下がりの傾向）を示す散布図。]`
 """
-
         response = client.models.generate_content(
             model=MODEL_ID,
             contents=[uploaded_file, prompt]
         )
 
-        # Markdownファイルとして保存
         with open(md_filename, "w", encoding="utf-8") as f:
             f.write(response.text)
         
         print(f"   💾 変換完了！ 保存先: {md_filename}")
 
-        # 🧹 API上のファイルをクリーンアップ（削除）
         try:
             client.files.delete(name=uploaded_file.name)
             print("   🗑️ クラウド上のPDFキャッシュを削除しました。")
@@ -119,7 +106,6 @@ PDF内にグラフ、ベン図、幾何図形、数直線、統計グラフな�
             pass
 
     finally:
-        # 🧹 ローカルに作った一時ファイルを確実に削除
         if os.path.exists(temp_pdf_path):
             os.remove(temp_pdf_path)
 

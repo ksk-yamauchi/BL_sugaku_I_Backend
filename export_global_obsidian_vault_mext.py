@@ -10,33 +10,25 @@ VAULT_PATH = os.path.join(PARENT_DIR, VAULT_DIR_NAME)
 MEXT_DICT_PATH = os.path.join(PARENT_DIR, "mext_master_dict.json")
 
 def clean_filename(name):
-    """OSのファイル名として使えない記号を置換"""
     cleaned = re.sub(r'[\\/*?:"<>|]', "_", name).strip()
     return cleaned if cleaned else "untitled"
 
 def clean_tag_name(name):
-    """Obsidianのタグとして使えないスペース・特殊記号をアンダースコアに置換"""
     cleaned = re.sub(r'[\s\\/*?:"<>|()\[\]{}.#,\'`$=+~!@%^&-]', "_", name)
     cleaned = re.sub(r'_+', '_', cleaned).strip('_')
     return cleaned if cleaned else "untitled"
 
 def detect_competency(mext_code):
-    """16桁の文科省コードの第9桁（インデックス8）から観点を一意に特定"""
     if not mext_code or len(mext_code) < 9:
         return None
-    
     competency_digit = mext_code[8]
-    if competency_digit == '1':
-        return "知識・技能"
-    elif competency_digit == '2':
-        return "思考力・判断力等"
-    elif competency_digit == '3':
-        return "主体性等"
-    
+    if competency_digit == '1': return "知識・技能"
+    elif competency_digit == '2': return "思考力・判断力等"
+    elif competency_digit == '3': return "主体性等"
     return "大項目・その他"
 
 def main():
-    print("🚀 [Ver 2.8 概念理解/例題演習ノード分割対応版] Obsidian Vault パッケージ化を開始します...")
+    print("🚀 [Ver 12.0 GNN-KT & 階層オントロジー完全対応] Obsidian Vault パッケージ化を開始します...")
 
     if os.path.exists(VAULT_PATH): 
         shutil.rmtree(VAULT_PATH)
@@ -53,6 +45,7 @@ def main():
     sub_dirs.sort()
 
     global_concepts = {} 
+    global_parent_concepts = {} 
     global_videos = {} 
     
     for s_dir in sub_dirs:
@@ -74,7 +67,13 @@ def main():
 
         for c in kg_data.get("extracted_concepts", []):
             c_name = c["concept_name"]
+            parent_name = c.get("parent_concept", "未分類")
             videos = c.get("aligned_videos", [])
+            
+            if parent_name not in global_parent_concepts:
+                global_parent_concepts[parent_name] = {"children": set()}
+            global_parent_concepts[parent_name]["children"].add(c_name)
+
             for v in videos:
                 v_file = v.get("video_file")
                 if v_file:
@@ -94,6 +93,9 @@ def main():
             if c_name not in global_concepts:
                 global_concepts[c_name] = {
                     "summary": c.get("summary", ""),
+                    "parent_concept": parent_name,
+                    "competency": c.get("competency", ""),
+                    "prerequisite_concepts": c.get("prerequisite_concepts", []),
                     "mext_code": c.get("mext_code", ""),
                     "branch_code": c.get("branch_code", ""),
                     "aligned_videos": videos,
@@ -126,7 +128,7 @@ def main():
             q_content += f"> **問題概要:** {q_text}\n\n"
             
             if matched_c_name:
-                q_content += f"## 🔗 対象の数理概念\n- [[概念_{clean_filename(matched_c_name)}]]\n\n"
+                q_content += f"## 🔗 対象の数理概念（Level 4）\n- [[概念_{clean_filename(matched_c_name)}]]\n\n"
             
             q_content += "## 🎬 紐付けられた解説セグメント\n"
             edges = q.get("aligned_videos", [])
@@ -159,23 +161,29 @@ def main():
                             global_videos[v_file]["questions_prereq"].add(f"[[{q_filename}]]")
                             prereq_edges.append(edge)
 
-                # 📘 概念理解（前提概念）
                 q_content += "### 📘 概念理解（前提となる基礎・解説講義）\n"
                 if prereq_edges:
                     for edge in prereq_edges:
                         v_file = edge.get('video_file', '')
-                        q_content += f"- **🔵 パターンB** [[{clean_filename(v_file)}]] (`{edge.get('start_time', '')}`〜)\n"
-                        q_content += f"  - 理由: {edge.get('reasoning', '')}\n"
+                        e_time = edge.get('end_time', '')
+                        time_str = f"`{edge.get('start_time', '')}`〜`{e_time}`" if e_time else f"`{edge.get('start_time', '')}`〜"
+                        q_content += f"- **🔵 パターンB** [[{clean_filename(v_file)}]] ({time_str})\n"
+                        if edge.get("blackboard_ocr"):
+                            q_content += f"  - 📝 板書OCR: {edge['blackboard_ocr']}\n"
+                        q_content += f"  - 💡 理由: {edge.get('reasoning', '')}\n"
                 else:
                     q_content += "- (特記なし)\n"
 
-                # 📗 例題演習（直接解説）
                 q_content += "\n### 📗 例題演習（本問題の解法直接解説）\n"
                 if direct_edges:
                     for edge in direct_edges:
                         v_file = edge.get('video_file', '')
-                        q_content += f"- **🟢 パターンA** [[{clean_filename(v_file)}]] (`{edge.get('start_time', '')}`〜)\n"
-                        q_content += f"  - 理由: {edge.get('reasoning', '')}\n"
+                        e_time = edge.get('end_time', '')
+                        time_str = f"`{edge.get('start_time', '')}`〜`{e_time}`" if e_time else f"`{edge.get('start_time', '')}`〜"
+                        q_content += f"- **🟢 パターンA** [[{clean_filename(v_file)}]] ({time_str})\n"
+                        if edge.get("blackboard_ocr"):
+                            q_content += f"  - 📝 板書OCR: {edge['blackboard_ocr']}\n"
+                        q_content += f"  - 💡 理由: {edge.get('reasoning', '')}\n"
                 else:
                     q_content += "- (特記なし)\n"
             else:
@@ -185,7 +193,6 @@ def main():
             with open(os.path.join(VAULT_PATH, f"{q_filename}.md"), "w", encoding="utf-8") as f:
                 f.write(q_content)
 
-        # 単元ハブノートの生成
         b_content = f"---\ntags:\n  - format/hub\n  - bundle/{bundle_tag}\n---\n# {bundle_name}\n\n"
         b_content += "## 📝 収録確認問題\n"
         b_content += "\n".join([f"- {link}" for link in bundle_q_links]) + "\n\n"
@@ -200,7 +207,18 @@ def main():
         with open(os.path.join(VAULT_PATH, f"{clean_bundle}.md"), "w", encoding="utf-8") as f:
             f.write(b_content)
 
-    print("   🧠 概念ノード群を生成中...")
+    print("   🧠 Level 3 (親概念ハブ) ノード群を生成中...")
+    all_parent_names = set(global_parent_concepts.keys())
+    for p_name, p_data in global_parent_concepts.items():
+        if p_name == "未分類": continue
+        p_filename = clean_filename(f"親概念_{p_name}")
+        p_content = f"---\ntags:\n  - format/concept_level3\n  - Role/Stasap_ParentConcept\n---\n# 親概念: {p_name}\n\n## 🔽 含まれる学習アクション（Level 4）\n"
+        for child in sorted(list(p_data["children"])):
+            p_content += f"- [[概念_{clean_filename(child)}]]\n"
+        with open(os.path.join(VAULT_PATH, f"{p_filename}.md"), "w", encoding="utf-8") as f:
+            f.write(p_content)
+
+    print("   🧠 Level 4 (学習アクション) ノード群を生成中...")
     all_existing_concept_names = set(global_concepts.keys())
 
     for c_name, c_data in global_concepts.items():
@@ -209,14 +227,22 @@ def main():
         mext_code = c_data["mext_code"]
         branch_code = c_data["branch_code"]
         m_info = mext_dict.get(mext_code, {})
-        competency_type = detect_competency(mext_code)
+        
+        raw_comp = c_data.get("competency", "")
+        if raw_comp == "knowledge_skill": competency_type = "知識・技能"
+        elif raw_comp == "thinking_judgment": competency_type = "思考力・判断力等"
+        else: competency_type = detect_competency(mext_code)
 
-        c_content = f"---\ntags:\n  - format/concept\n  - Role/Stasap_Concept\n"
+        c_content = f"---\ntags:\n  - format/concept\n  - format/concept_level4\n  - Role/Stasap_Concept_Action\n"
         if competency_type:
-            c_content += f"  - Competency/{competency_type}\n"
+            c_content += f"  - Competency/{clean_tag_name(competency_type)}\n"
         if mext_code:
             c_content += f"  - MEXT/{mext_code}\n"
-        c_content += f"---\n# 概念: {c_name}\n\n"
+        c_content += f"---\n# 概念(アクション): {c_name}\n\n"
+
+        parent = c_data.get("parent_concept", "")
+        if parent and parent in all_parent_names:
+            c_content += f"## 🔼 親概念 (Level 3)\n- [[親概念_{clean_filename(parent)}]]\n\n"
 
         c_content += "## 🏛️ 指導要領アライメント\n"
         if mext_code and m_info:
@@ -231,16 +257,47 @@ def main():
 
         c_content += f"## 📌 スタサプ独自概要\n{c_data['summary']}\n\n"
         
+        prereqs = c_data.get("prerequisite_concepts", [])
+        c_content += "## ➡️ 前提知識 (重み付きネットワーク)\n"
+        if prereqs:
+            for req in prereqs:
+                if isinstance(req, dict):
+                    r_name = req.get("concept_name", "")
+                    r_type = "🔵 必須" if req.get("dependency_type") == "mandatory" else "🟡 補足"
+                    r_reason = req.get("reasoning", "")
+                    
+                    if r_name in all_parent_names:
+                        c_content += f"- **{r_type}**: [[親概念_{clean_filename(r_name)}]]\n"
+                    elif r_name in all_existing_concept_names:
+                        c_content += f"- **{r_type}**: [[概念_{clean_filename(r_name)}]]\n"
+                    else:
+                        c_content += f"- **{r_type}**: `{r_name}` (※外部概念)\n"
+                        
+                    if r_reason:
+                        c_content += f"  - 💡 理由: {r_reason}\n"
+                else:
+                    if req in all_parent_names:
+                        c_content += f"- [[親概念_{clean_filename(req)}]]\n"
+                    else:
+                        c_content += f"- `{req}`\n"
+            c_content += "\n"
+        else:
+            c_content += "- 特記なし\n\n"
+
         aligned_videos = c_data.get("aligned_videos", [])
         if aligned_videos:
             c_content += "## 🎬 📘 概念理解インプット講義動画\n"
             for v in aligned_videos:
                 v_file = v.get("video_file", "")
                 s_time = v.get("start_time", "00:00")
+                e_time = v.get("end_time", "")
+                time_str = f"`{s_time}`〜`{e_time}`" if e_time else f"`{s_time}`〜"
                 reason = v.get("reasoning", "")
-                c_content += f"- **動画**: [[{clean_filename(v_file)}]] (`{s_time}`〜)\n"
+                c_content += f"- **動画**: [[{clean_filename(v_file)}]] ({time_str})\n"
+                if v.get("blackboard_ocr"):
+                    c_content += f"  - 📝 板書OCR: {v['blackboard_ocr']}\n"
                 if reason:
-                    c_content += f"  - 💡 {reason}\n"
+                    c_content += f"  - 💡 理由: {reason}\n"
             c_content += "\n"
 
         c_content += "## 🔗 この概念を使用する確認問題\n"
@@ -248,7 +305,7 @@ def main():
         
         c_content += "\n\n## 🤝 関連する他の概念（オントロジー・ネットワーク）\n"
         valid_related_links = []
-        for rc in c_data["related_concepts"]:
+        for rc in c_data.get("related_concepts", set()):
             if rc in all_existing_concept_names and rc != c_name:
                 valid_related_links.append(f"- [[概念_{clean_filename(rc)}]]")
             else:
@@ -265,7 +322,6 @@ def main():
         with open(os.path.join(VAULT_PATH, f"{c_filename}.md"), "w", encoding="utf-8") as f:
             f.write(c_content)
 
-    # 動画専用ノード（Markdownファイル）の自動生成
     print("   🎬 動画ノード群を生成中 (概念理解/例題演習のバックリンク分類)...")
     for v_file, v_data in global_videos.items():
         v_filename = clean_filename(v_file)
@@ -304,7 +360,7 @@ def main():
                 arcname = os.path.relpath(file_path, PARENT_DIR)
                 zipf.write(file_path, arcname)
 
-    print(f"🎉 🎉 【成功】Obsidian Vault（Ver 2.8 概念理解/例題演習ノード分割対応版）の生成完了！\n💾 保存先: {zip_path}")
+    print(f"🎉 🎉 【成功】Obsidian Vault（Ver 12.0 GNN-KT & 階層オントロジー完全対応）の生成完了！\n💾 保存先: {zip_path}")
 
 if __name__ == "__main__":
     main()
