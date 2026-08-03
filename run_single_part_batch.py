@@ -9,7 +9,7 @@ from glob import glob
 # ⚙️ 設定パラメータ（API無料枠・安全運用調整）
 # =========================================================
 # 各Phase実行間の安全ウェイト時間（秒）
-INTERVAL_BETWEEN_PHASES = 10
+INTERVAL_BETWEEN_PHASES = 60
 # API制限（429エラー等）で失敗した際の自動リトライ回数と待機時間
 MAX_RETRIES = 5
 RETRY_WAIT_SECONDS = 60
@@ -85,10 +85,10 @@ def process_subfolder(subfolder_name):
     print("=" * 80)
 
     # 0. Phase 0 実行 (PDF to MD)
-    if not run_phase_script("phase0_pdf_to_md.py", subfolder_path):
-        return
-    print(f"☕ APIウェイト: {INTERVAL_BETWEEN_PHASES}秒待機中...")
-    time.sleep(INTERVAL_BETWEEN_PHASES)
+    #if not run_phase_script("phase0_pdf_to_md.py", subfolder_path):
+    #    return
+    #print(f"☕ APIウェイト: {INTERVAL_BETWEEN_PHASES}秒待機中...")
+    #time.sleep(INTERVAL_BETWEEN_PHASES)
 
     # 1. Phase 1 実行 (テキスト解析)
     if not run_phase_script("phase1_text_analysis_ontology.py", subfolder_path):

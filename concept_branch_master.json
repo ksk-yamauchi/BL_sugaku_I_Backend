@@ -121,6 +121,62 @@
     {
       "branch_code": "_024",
       "concept_name": "2次方程式の解の公式（xの係数が偶数の場合）による解法"
+    },
+    {
+      "branch_code": "_025",
+      "concept_name": "特定の文字に着目して単項式の係数と次数を識別する"
+    },
+    {
+      "branch_code": "_026",
+      "concept_name": "特定の文字に着目して多項式の次数と定数項を特定する"
+    },
+    {
+      "branch_code": "_027",
+      "concept_name": "特定の文字に着目して他の文字を定数とみなした降べきの順の整理"
+    },
+    {
+      "branch_code": "_028",
+      "concept_name": "特定の文字に着目して他の文字を定数扱いし整式を整理する"
+    },
+    {
+      "branch_code": "_029",
+      "concept_name": "複数の整式を括弧付きで代入し定数倍の加減を行う線形結合計算"
+    },
+    {
+      "branch_code": "_030",
+      "concept_name": "式を代入して定数倍を展開し同類項をまとめる整式の計算"
+    },
+    {
+      "branch_code": "_031",
+      "concept_name": "共通部分の置き換えによる多項式の展開"
+    },
+    {
+      "branch_code": "_032",
+      "concept_name": "3項の平方 $(a+b+c)^2$ の展開"
+    },
+    {
+      "branch_code": "_033",
+      "concept_name": "多項式のかたまりを共通因数としてくくり出す"
+    },
+    {
+      "branch_code": "_034",
+      "concept_name": "符号を反転させて共通因数を作り出し整理する"
+    },
+    {
+      "branch_code": "_035",
+      "concept_name": "複数文字を含む式を最も次数が低い文字に着目して整理し因数分解する"
+    },
+    {
+      "branch_code": "_036",
+      "concept_name": "同次数の複数文字を含む式を1つの文字に着目して整理し因数分解する"
+    },
+    {
+      "branch_code": "_037",
+      "concept_name": "A < B < C 型の不等式を連立1次不等式に変形して解く"
+    },
+    {
+      "branch_code": "_038",
+      "concept_name": "絶対値を含む1次方程式 $|x+a|=c$ の処理（置き換えと移項）"
     }
   ],
   "8451503113000000": [
@@ -347,6 +403,114 @@
     {
       "branch_code": "_056",
       "concept_name": "因数分解による2次方程式の解法"
+    },
+    {
+      "branch_code": "_057",
+      "concept_name": "単項式の係数と次数を特定する"
+    },
+    {
+      "branch_code": "_058",
+      "concept_name": "多項式の項・定数項および次数を特定する"
+    },
+    {
+      "branch_code": "_059",
+      "concept_name": "多項式の同類項をまとめて式を整理する"
+    },
+    {
+      "branch_code": "_060",
+      "concept_name": "1つの文字についての降べきの順への並び替え"
+    },
+    {
+      "branch_code": "_061",
+      "concept_name": "同類項をまとめて降べきの順に整式を整理する"
+    },
+    {
+      "branch_code": "_062",
+      "concept_name": "整式の加法・減法において同類項をまとめて計算する"
+    },
+    {
+      "branch_code": "_063",
+      "concept_name": "引く式の各項の符号を変えて括弧をはずす減法計算"
+    },
+    {
+      "branch_code": "_064",
+      "concept_name": "指数法則を用いた累乗を含む単項式の積の計算"
+    },
+    {
+      "branch_code": "_065",
+      "concept_name": "分配法則を用いた単項式と多項式の積の展開"
+    },
+    {
+      "branch_code": "_066",
+      "concept_name": "整式の加法において括弧を外し同類項をまとめる計算"
+    },
+    {
+      "branch_code": "_067",
+      "concept_name": "整式の減法において引く式の各項の符号を反転させて整理する計算"
+    },
+    {
+      "branch_code": "_068",
+      "concept_name": "指数法則を用いて単項式の累乗や積を計算する処理"
+    },
+    {
+      "branch_code": "_069",
+      "concept_name": "分配法則を用いて単項式と多項式の積を展開する計算"
+    },
+    {
+      "branch_code": "_070",
+      "concept_name": "平方の展開公式 $(a \\pm b)^2$ の適用"
+    },
+    {
+      "branch_code": "_071",
+      "concept_name": "和と差の積の展開公式 $(a+b)(a-b)$ の適用"
+    },
+    {
+      "branch_code": "_072",
+      "concept_name": "1次式の積の展開公式 $(x+a)(x+b)$ の適用"
+    },
+    {
+      "branch_code": "_073",
+      "concept_name": "一般の1次式の積の展開公式 $(ax+b)(cx+d)$ の適用"
+    },
+    {
+      "branch_code": "_074",
+      "concept_name": "単項式の共通因数をくくり出す"
+    },
+    {
+      "branch_code": "_075",
+      "concept_name": "完全平方式の公式を用いた因数分解の適用"
+    },
+    {
+      "branch_code": "_076",
+      "concept_name": "平方の差の公式を用いた因数分解の適用"
+    },
+    {
+      "branch_code": "_077",
+      "concept_name": "和と積に着目した二次三項式の因数分解"
+    },
+    {
+      "branch_code": "_078",
+      "concept_name": "共通因数のくくり出しと因数分解公式の併用処理"
+    },
+    {
+      "branch_code": "_079",
+      "concept_name": "たすきがけによる $acx^2+(ad+bc)x+bd$ の因数分解の基本手順"
+    },
+    {
+      "branch_code": "_080",
+      "concept_name": "符号に注意したたすきがけの組み合わせ試行"
+    },
+    {
+      "branch_code": "_081",
+      "concept_name": "2文字を含む2次式のたすきがけ処理"
+    },
+    {
+      "branch_code": "_082",
+      "concept_name": "共通の多項式を1つの文字に置き換えて因数分解する"
+    },
+    {
+      "branch_code": "_083",
+      "concept_name": "複二次式 $ax^4+bx^2+c$ を $x^2=X$ と置き換えて因数分解する"
     }
   ],
   "8451505200000000": [
@@ -479,6 +643,58 @@
     {
       "branch_code": "_028",
       "concept_name": "平方根による2次方程式の解法"
+    },
+    {
+      "branch_code": "_029",
+      "concept_name": "分数を割り算により循環小数で表す"
+    },
+    {
+      "branch_code": "_030",
+      "concept_name": "$10^n x - x$ を用いて循環小数を分数に変換する"
+    },
+    {
+      "branch_code": "_031",
+      "concept_name": "数の集合（自然数・整数・有理数・実数）と四則計算の閉鎖性を理解する"
+    },
+    {
+      "branch_code": "_032",
+      "concept_name": "数値の絶対値を求める"
+    },
+    {
+      "branch_code": "_033",
+      "concept_name": "根号を含む式の絶対値記号を外す"
+    },
+    {
+      "branch_code": "_034",
+      "concept_name": "数直線上の2点間の距離を計算する"
+    },
+    {
+      "branch_code": "_035",
+      "concept_name": "数値や無理数の絶対値を定義に基づいて外す"
+    },
+    {
+      "branch_code": "_036",
+      "concept_name": "数直線上の2点間の距離を絶対値の定義を用いて求める"
+    },
+    {
+      "branch_code": "_037",
+      "concept_name": "$\\sqrt{a^2} = |a|$ を含む平方根の性質の理解と処理"
+    },
+    {
+      "branch_code": "_038",
+      "concept_name": "$\\sqrt{k^2 a} = k\\sqrt{a}$ による根号内の数の変形（簡単化）"
+    },
+    {
+      "branch_code": "_039",
+      "concept_name": "乗法公式を利用した根号を含む式の展開計算"
+    },
+    {
+      "branch_code": "_040",
+      "concept_name": "単項式の分母の有理化"
+    },
+    {
+      "branch_code": "_041",
+      "concept_name": "和と差の積の公式を利用した多項式の分母の有理化"
     }
   ],
   "8451503114000000": [
@@ -569,12 +785,88 @@
     {
       "branch_code": "_022",
       "concept_name": "1次不等式と1次関数のグラフの関係"
+    },
+    {
+      "branch_code": "_023",
+      "concept_name": "不等号を用いた数量の大小関係の表記"
+    },
+    {
+      "branch_code": "_024",
+      "concept_name": "不等式の両辺に対する加減計算と大小関係の維持"
+    },
+    {
+      "branch_code": "_025",
+      "concept_name": "1次不等式の移項による整理と解の算出"
+    },
+    {
+      "branch_code": "_026",
+      "concept_name": "かっこを含む1次不等式の展開と整理"
+    },
+    {
+      "branch_code": "_027",
+      "concept_name": "小数を含む1次不等式の整数化処理"
+    },
+    {
+      "branch_code": "_028",
+      "concept_name": "分数を含む1次不等式の分母払いの処理"
+    },
+    {
+      "branch_code": "_029",
+      "concept_name": "連立1次不等式を個別に解き数直線で共通範囲を求める"
+    },
+    {
+      "branch_code": "_030",
+      "concept_name": "定数型の絶対値方程式 $|x|=c$ ($c>0$) の解法"
+    },
+    {
+      "branch_code": "_031",
+      "concept_name": "1次式を含む絶対値方程式 $|ax+b|=c$ の変形処理"
+    },
+    {
+      "branch_code": "_032",
+      "concept_name": "定数型の絶対値不等式 $|x|<c$ や $|x|>c$ ($c>0$) の解法"
+    },
+    {
+      "branch_code": "_033",
+      "concept_name": "$|x|=c$ 型の絶対値を含む基本方程式を解く"
+    },
+    {
+      "branch_code": "_034",
+      "concept_name": "$|x+a|=c$ 型の絶対値を含む方程式の解法（置き換え・移項処理）"
+    },
+    {
+      "branch_code": "_035",
+      "concept_name": "$|x|<c$ および $|x|>c$ 型の絶対値を含む基本不等式を解く"
+    },
+    {
+      "branch_code": "_036",
+      "concept_name": "$|x|=c$ 型の基本的な絶対値方程式の処理"
+    },
+    {
+      "branch_code": "_037",
+      "concept_name": "$|x+a|=c$ 型の1次式を含む絶対値方程式の処理"
+    },
+    {
+      "branch_code": "_038",
+      "concept_name": "$|x|<c$ や $|x|>c$ 型の基本的な絶対値不等式の処理"
+    },
+    {
+      "branch_code": "_039",
+      "concept_name": "絶対値を含む基本方程式 $|x|=c$ の処理"
+    },
+    {
+      "branch_code": "_040",
+      "concept_name": "絶対値を含む基本不等式 $|x|<c, |x|>c$ の処理"
     }
   ],
   "8451503124000000": [
     {
       "branch_code": "_001",
       "concept_name": "1次不等式の利用（文章題）"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "文章題から数量関係を1次不等式に立式し整数解を吟味する"
     }
   ],
   "8451503112000000": [
@@ -1069,6 +1361,28 @@
     {
       "branch_code": "_001",
       "concept_name": "求めた確率と基準となる確率（0.05など）の大小を比較し仮説の妥当性を判断する"
+    }
+  ],
+  "8451503123000000": [
+    {
+      "branch_code": "_001",
+      "concept_name": "負の数を乗除した際の不等号の反転処理"
+    },
+    {
+      "branch_code": "_002",
+      "concept_name": "1次式を含む絶対値不等式 $|ax+b|<c$ や $|ax+b|>c$ の変形処理"
+    },
+    {
+      "branch_code": "_003",
+      "concept_name": "$|x+a|<c$ や $|x+a|\\geqq c$ 型の絶対値を含む不等式の解法"
+    },
+    {
+      "branch_code": "_004",
+      "concept_name": "$|x+a|<c$ や $|x+a| \\geqq c$ 型の1次式を含む絶対値不等式の処理"
+    },
+    {
+      "branch_code": "_005",
+      "concept_name": "絶対値を含む1次不等式 $|x+a|<c, |x+a|\\geqq c$ の処理（各辺への操作）"
     }
   ]
 }
