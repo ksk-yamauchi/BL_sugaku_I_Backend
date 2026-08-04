@@ -1,20 +1,116 @@
 import os
 import json
+import time
+import re
 from dotenv import load_dotenv
 from google import genai
-from google.genai import types
+from google.genai import errors, types
 
 # =========================================================
-# ⚙️ 設定・初期化 (.env 対応)
+# ⚙️ 設定・初期化 (.env 複数APIキー対応 ＆ 強制上書き)
 # =========================================================
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
-API_KEY = os.environ.get("GEMINI_API_KEY")
+ENV_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env")
 
-if not API_KEY:
-    raise ValueError("❌ .env ファイルに GEMINI_API_KEY が設定されていません。")
+# 🌟 override=True を指定してターミナル内の古い環境変数を強制上書き
+load_dotenv(dotenv_path=ENV_PATH, override=True)
 
-client = genai.Client(api_key=API_KEY)
+# 不可視文字(BOM等)や引用符を除去するクレンジング関数
+def clean_key(k_str):
+    if not k_str:
+        return ""
+    return k_str.strip().strip("'\"").replace('\ufeff', '')
+
+# GEMINI_API_KEYS と GEMINI_API_KEY の両方に対応し、どちらでもカンマで分割する
+raw_keys = os.environ.get("GEMINI_API_KEYS", "") or os.environ.get("GEMINI_API_KEY", "")
+API_KEYS = [clean_key(k) for k in raw_keys.split(",") if clean_key(k)]
+
+if not API_KEYS:
+    raise ValueError("❌ .env ファイルに GEMINI_API_KEYS または GEMINI_API_KEY が設定されていません。")
+
+current_key_index = 0
 MODEL_NAME = "gemini-3.6-flash"
+
+def get_client():
+    """現在のインデックスのAPIキーでGemini Clientを生成"""
+    global current_key_index
+    return genai.Client(api_key=API_KEYS[current_key_index])
+
+def rotate_key():
+    """次のAPIキーへローテーション"""
+    global current_key_index
+    if len(API_KEYS) <= 1:
+        print("   ⚠️ 登録されているAPIキーが1つのため、キー切り替えができません。")
+        return False
+    current_key_index = (current_key_index + 1) % len(API_KEYS)
+    masked_key = f"{API_KEYS[current_key_index][:6]}...{API_KEYS[current_key_index][-4:]}" if len(API_KEYS[current_key_index]) > 10 else "INVALID"
+    print(f"   🔄 APIキーを切り替えました (Key {current_key_index + 1}/{len(API_KEYS)}: {masked_key})")
+    return True
+
+# =========================================================
+# 🔄 API 呼び出し (JSON修復 ＋ 制限検知キー切り替え ＋ 動的リトライ)
+# =========================================================
+def generate_content_and_parse_json(prompt, max_retries=None):
+    if max_retries is None:
+        # キーの数の2倍までリトライを許可する
+        max_retries = max(5, len(API_KEYS) * 2)
+
+    config = types.GenerateContentConfig(response_mime_type="application/json", temperature=0.1)
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            client = get_client()
+            print(f"      [通信開始: 試行 {attempt}/{max_retries}]")
+            response = client.models.generate_content(
+                model=MODEL_NAME,
+                contents=prompt,
+                config=config
+            )
+            print("      [通信完了]")
+            
+            # Markdownブロックの除去
+            text = response.text
+            text = re.sub(r'^```json\s*', '', text.strip(), flags=re.IGNORECASE)
+            text = re.sub(r'\s*```$', '', text)
+            
+            # JSONのパースと自動修復
+            try:
+                return json.loads(text)
+            except json.JSONDecodeError:
+                # LaTeXの \ をエスケープし忘れたエラーに対する自動修復
+                fixed_text = text.replace('\\', '\\\\').replace('\\\\"', '\\"').replace('\\\\n', '\\n')
+                try:
+                    return json.loads(fixed_text)
+                except json.JSONDecodeError as je:
+                    print(f"      ⚠️ AI出力のJSON形式エラー(LaTeXエスケープ起因等)。安全に再生成します... (試行 {attempt}/{max_retries})")
+                    if attempt == max_retries:
+                        raise RuntimeError(f"❌ JSONパースが{max_retries}回失敗しました: {je}")
+                    time.sleep(3)
+                    continue
+
+        except errors.APIError as e:
+            err_str = str(e).lower()
+            if any(k in err_str for k in ["429", "quota", "resource_exhausted", "api_key_invalid", "invalid_argument"]):
+                curr_k = API_KEYS[current_key_index]
+                masked_k = f"{curr_k[:6]}...{curr_k[-4:]}" if len(curr_k) > 10 else "INVALID"
+                print(f"      ⚠️ API制限/無効キーを検知しました (Key: {masked_k}, 試行 {attempt}/{max_retries})")
+                if rotate_key():
+                    print("      ⏩ 新しいAPIキーで即座にリトライします...")
+                    continue
+                else:
+                    print("      ⏳ 40秒待機後にリトライします...")
+                    time.sleep(40)
+            elif "503" in err_str or "unavailable" in err_str:
+                print(f"      ⚠️ 503サーバーエラー (試行 {attempt}/{max_retries}): 30秒待機後リトライ...")
+                time.sleep(30)
+            else:
+                if attempt == max_retries: raise e
+                print(f"      ⚠️ API通信エラー ({e}) (試行 {attempt}/{max_retries}): 20秒待機後リトライ...")
+                time.sleep(20)
+        except Exception as e:
+            if attempt == max_retries: raise e
+            print(f"      ⚠️ 予期せぬ通信エラー ({e}) (試行 {attempt}/{max_retries}): 20秒待機後リトライ...")
+            time.sleep(20)
+    raise RuntimeError("❌ リトライ上限超過")
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(CURRENT_DIR, "output_result")
@@ -67,7 +163,8 @@ def execute_phase3_alignment(phase1_data, phase2_data):
 3. video_file の完全一致指定 (【最重要】伏字・省略の絶対禁止):
    - `video_file` の項目には、必ず【Phase 2: 動画タイムラインデータ】内に存在する実際のファイル名（例: `BL_sugaku_I_01-1-3.mp4` など）をそのまま正確に記述してください。
 
-4. 【最重要: LaTeX指定】 `reasoning` (理由付け) のテキスト内に数式、変数、記号が含まれる場合は、必ずインラインLaTeX（$...$）を使用してください。
+【★最重要: LaTeXとJSONエスケープの絶対ルール★】
+`reasoning` (理由付け) のテキスト内にLaTeX数式（$...$）を含める場合、**必ずバックスラッシュを二重にエスケープ（例: \\\\frac, \\\\subset）** してください。JSONフォーマットとしてInvalidにならないよう細心の注意を払ってください。
 
 【出力JSONフォーマット】:
 {{
@@ -99,15 +196,14 @@ def execute_phase3_alignment(phase1_data, phase2_data):
   ]
 }}
 """
-    response = client.models.generate_content(
-        model=MODEL_NAME, 
-        contents=prompt,
-        config=types.GenerateContentConfig(response_mime_type="application/json", temperature=0.1)
-    )
-    return json.loads(response.text)
+    # ★ APIを叩いてパースまで完結する堅牢な関数を使用
+    return generate_content_and_parse_json(prompt)
 
 def main():
-    print("=== 🏁 【Ver 12.0 GNN-KT & ファジーマッチOCR結合対応】Phase 3 起動 ===")
+    print("=== 🏁 【Ver 12.1 GNN-KT & ファジーマッチOCR結合対応】Phase 3 起動 ===")
+    print(f"   🔑 読み込み済み有効APIキー数: {len(API_KEYS)} 個")
+    first_key_masked = f"{API_KEYS[0][:6]}...{API_KEYS[0][-4:]}" if len(API_KEYS[0]) > 10 else "INVALID"
+    print(f"   👉 現在使用中のキー: {first_key_masked}")
     
     phase1_data = load_json(PHASE1_FILE)
     phase2_data = load_json(PHASE2_FILE)
