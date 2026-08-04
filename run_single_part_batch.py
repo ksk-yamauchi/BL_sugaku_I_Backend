@@ -6,13 +6,13 @@ import platform
 from glob import glob
 
 # =========================================================
-# ⚙️ 設定パラメータ（API無料枠・安全運用調整）
+# ⚙️ 設定パラメータ（安全運用調整）
 # =========================================================
-# 各Phase実行間の安全ウェイト時間（秒）
-INTERVAL_BETWEEN_PHASES = 60
-# API制限（429エラー等）で失敗した際の自動リトライ回数と待機時間
-MAX_RETRIES = 5
-RETRY_WAIT_SECONDS = 60
+# 各Phase実行間のウェイト時間（秒）※キーローテーションにより短縮可能
+INTERVAL_BETWEEN_PHASES = 10
+# スクリプトレベルでのエラー発生時自動リトライ設定
+MAX_RETRIES = 3
+RETRY_WAIT_SECONDS = 30
 
 PARENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -65,43 +65,51 @@ def run_phase_script(script_name, subfolder_path):
             print(f"✅ [{script_name}] 正常完了！")
             return True
         else:
-            print(f"\n⚠️  [{script_name}] の実行中にエラーまたはAPI制限が発生しました。 (試行 {attempt}/{MAX_RETRIES})")
+            print(f"\n⚠️  [{script_name}] の実行中にエラーが発生しました。 (試行 {attempt}/{MAX_RETRIES})")
             if attempt < MAX_RETRIES:
-                print(f"⏳ API枠の回復を待つため、{RETRY_WAIT_SECONDS}秒間待機してから自動再実行します...")
+                print(f"⏳ {RETRY_WAIT_SECONDS}秒間待機してから自動再実行します...")
                 time.sleep(RETRY_WAIT_SECONDS)
             else:
                 print(f"❌ [{script_name}] が{MAX_RETRIES}回失敗したため、処理を中断します。")
                 return False
 
-def process_subfolder(subfolder_name):
-    """1つの子フォルダに対して Phase 0〜3 を順次実行"""
+def process_subfolder(subfolder_name, mode=1):
+    """
+    1つの子フォルダに対して Phase 処理を実行
+    mode 1: フル実行 (Phase 0 → 1 → 2 → 3)
+    mode 2: 高速オントロジー再構築 (Phase 1 → 3 のみ実行)
+    """
     subfolder_path = os.path.join(PARENT_DIR, subfolder_name)
     if not os.path.isdir(subfolder_path):
         print(f"❌ 指定されたフォルダが存在しません: {subfolder_name}")
         return
 
     print("=" * 80)
-    print(f"🚀 【一括処理開始】 フォルダ: {subfolder_name}")
+    mode_str = "全Phase順次実行 (Phase 0〜3)" if mode == 1 else "高速オントロジー再構築 (Phase 1 ➔ 3)"
+    print(f"🚀 【一括処理開始】 フォルダ: {subfolder_name} [{mode_str}]")
     print("=" * 80)
 
-    # 0. Phase 0 実行 (PDF to MD)
-    #if not run_phase_script("phase0_pdf_to_md.py", subfolder_path):
-    #    return
-    #print(f"☕ APIウェイト: {INTERVAL_BETWEEN_PHASES}秒待機中...")
-    #time.sleep(INTERVAL_BETWEEN_PHASES)
+    if mode == 1:
+        # 0. Phase 0 実行 (PDF to MD)
+        if not run_phase_script("phase0_pdf_to_md.py", subfolder_path):
+            return
+        print(f"☕ Phase間ウェイト: {INTERVAL_BETWEEN_PHASES}秒待機中...")
+        time.sleep(INTERVAL_BETWEEN_PHASES)
 
     # 1. Phase 1 実行 (テキスト解析)
     if not run_phase_script("phase1_text_analysis_ontology.py", subfolder_path):
         return
-    print(f"☕ APIウェイト: {INTERVAL_BETWEEN_PHASES}秒待機中...")
-    time.sleep(INTERVAL_BETWEEN_PHASES)
+    
+    if mode == 1:
+        print(f"☕ Phase間ウェイト: {INTERVAL_BETWEEN_PHASES}秒待機中...")
+        time.sleep(INTERVAL_BETWEEN_PHASES)
 
-    # 2. Phase 2 実行（動画解析）
-    if not run_phase_script("phase2_video_analysis.py", subfolder_path):
-        print("⚠️ Phase 2で中断したため、処理を停止します。")
-        return
-    print(f"☕ APIウェイト: {INTERVAL_BETWEEN_PHASES}秒待機中...")
-    time.sleep(INTERVAL_BETWEEN_PHASES)
+        # 2. Phase 2 実行（動画解析）
+        if not run_phase_script("phase2_video_analysis.py", subfolder_path):
+            print("⚠️ Phase 2で中断したため、処理を停止します。")
+            return
+        print(f"☕ Phase間ウェイト: {INTERVAL_BETWEEN_PHASES}秒待機中...")
+        time.sleep(INTERVAL_BETWEEN_PHASES)
 
     # 3. Phase 3 実行（統合）
     if not run_phase_script("phase3_alignment_graph.py", subfolder_path):
@@ -109,7 +117,7 @@ def process_subfolder(subfolder_name):
         return
 
     print("\n" + "=" * 80)
-    print(f"🎉 🎉 【完全完了】 {subfolder_name} の Phase 0 〜 Phase 3 が正常に完了しました！")
+    print(f"🎉 🎉 【完全完了】 {subfolder_name} の解析処理が正常に完了しました！")
     print("=" * 80 + "\n")
     
     # 🔔 バッチ完了のポップアップ通知と音を発火
@@ -132,7 +140,14 @@ def main():
         num = int(choice)
         if 1 <= num <= len(sub_dirs):
             target_folder = sub_dirs[num - 1]
-            process_subfolder(target_folder)
+            
+            print("\n⚙️ 実行モードの選択:")
+            print("  [1] 通常フル実行 (Phase 0 ➔ 1 ➔ 2 ➔ 3)")
+            print("  [2] 高速オントロジー更新 (Phase 1 ➔ 3 のみ実行 ※既存動画解析を再利用)")
+            mode_choice = input("👉 モード番号を選択してください (デフォルト: 1): ").strip()
+            
+            mode = 2 if mode_choice == "2" else 1
+            process_subfolder(target_folder, mode=mode)
         else:
             print("❌ 無効な番号です。")
     else:
