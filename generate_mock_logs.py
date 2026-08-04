@@ -1,175 +1,183 @@
 import json
-import random
 import os
+import random
+import uuid
 from datetime import datetime, timedelta
 
-# ==========================================
+# =========================================================
 # ⚙️ 設定
-# ==========================================
-DB_FILE = 'global_vector_db_cache.json'   # 読み込む統合データベース
-OUTPUT_FILE = 'mock_student_logs.json'    # 出力するダミーログ
-NUM_STUDENTS = 30                         # 生成する生徒の数
+# =========================================================
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_FILE = os.path.join(CURRENT_DIR, "global_vector_db_cache.json")
+OUTPUT_LOG_FILE = os.path.join(CURRENT_DIR, "mock_student_logs.json")
 
-# ペルソナの定義
+NUM_STUDENTS = 40  # 1クラス分のシミュレーション人数
+
+# ペルソナの定義と出現割合
 PERSONAS = [
-    "知識・技能偏重型",      # 基礎はできるが応用が苦手
-    "思考力・判断力特化型",  # 基礎抜けがあるが応用問題に強い
-    "分野特化型",            # 特定の分野だけ極端に得意/苦手
-    "数学得意型",            # 全体的に高得点
-    "数学苦手型"             # 全体的に低得点
+    {"type": "knowledge_heavy", "name": "知識・技能偏重型", "weight": 30},
+    {"type": "thinking_heavy", "name": "思考力・判断力特化型", "weight": 20},
+    {"type": "domain_biased", "name": "分野特化の偏り型", "weight": 20},
+    {"type": "overall_strong", "name": "全体得意型", "weight": 15},
+    {"type": "overall_weak", "name": "全体苦手型", "weight": 15}
 ]
 
-DOMAINS = ["数と式", "二次関数", "図形と計量", "データの分析", "場合の数と確率", "整数の性質"]
-
-def get_domain(mext_hierarchy, bundle_name):
-    """指導要領の階層テキストや単元名から「大項目（分野）」を抽出する"""
-    text = (mext_hierarchy + bundle_name).replace(" ", "")
-    for d in DOMAINS:
-        if d.replace("と", "") in text or d in text:
-            return d
-    return "その他"
-
-def calculate_base_probability(persona, competency, domain, student_domains):
-    """ペルソナと問題の属性からベースの正答確率を算出する"""
-    if persona == "知識・技能偏重型":
-        return 0.85 if competency == "knowledge_skill" else 0.30
-    elif persona == "思考力・判断力特化型":
-        return 0.50 if competency == "knowledge_skill" else 0.80
-    elif persona == "分野特化型":
-        if domain == student_domains['good']:
+# =========================================================
+# 🧠 ペルソナに基づくベース正答率の計算
+# =========================================================
+def get_base_probability(student, question_competency, parent_concept):
+    p_type = student["persona"]
+    
+    if p_type == "knowledge_heavy":
+        return 0.85 if question_competency == "knowledge_skill" else 0.30
+    elif p_type == "thinking_heavy":
+        return 0.50 if question_competency == "knowledge_skill" else 0.80
+    elif p_type == "domain_biased":
+        # 得意分野なら90%、苦手分野なら20%、それ以外は50%
+        if parent_concept in student.get("strong_domains", []):
             return 0.90
-        elif domain == student_domains['bad']:
+        elif parent_concept in student.get("weak_domains", []):
             return 0.20
-        else:
-            return 0.60
-    elif persona == "数学得意型":
-        return random.uniform(0.85, 0.95)
-    elif persona == "数学苦手型":
-        return random.uniform(0.15, 0.35)
+        return 0.50
+    elif p_type == "overall_strong":
+        return 0.90
+    elif p_type == "overall_weak":
+        return 0.25
     return 0.50
 
-def generate_logs():
-    print(f"🚀 GNN-KT検証用 ダミー学習ログ生成ツールを起動します...")
+# =========================================================
+# 🎓 ログ生成メインロジック (GNN-KT 連鎖ペナルティ適用)
+# =========================================================
+def main():
+    print("=== 🧪 [GNN-KT対応] ダミー学習ログ生成ツール 起動 ===")
     
-    # 1. 統合データベースの読み込み
     if not os.path.exists(DB_FILE):
-        print(f"❌ {DB_FILE} が見つかりません。")
+        print(f"❌ 統合DBが見つかりません: {DB_FILE}")
         return
 
-    with open(DB_FILE, 'r', encoding='utf-8') as f:
+    with open(DB_FILE, "r", encoding="utf-8") as f:
         db_data = json.load(f)
-        
-    global_nodes = db_data.get("global_concept_nodes", {})
-    if not global_nodes:
-        print(f"❌ {DB_FILE} 内に 'global_concept_nodes' が見つかりません。")
+
+    questions = db_data.get("questions", [])
+    concepts = db_data.get("concepts", [])
+    
+    if not questions:
+        print("⚠️ データベースに問題が含まれていません。")
         return
 
-    print(f"✅ {DB_FILE} を読み込みました (概念ノード数: {len(global_nodes)})")
+    # 1. 概念マップの構築 (前提知識を引きやすくするため)
+    concept_map = {c.get("concept_name"): c for c in concepts}
 
-    # 前提知識をたどるための「概念名 -> グローバルID」のマッピング辞書を作成
-    name_to_id = {node["concept_name"]: node["global_c_id"] for node in global_nodes.values()}
-
+    # 2. 生徒データの生成
     students = []
-    all_logs = []
+    # 偏り型のための全親概念リスト抽出
+    all_parents = list(set([c.get("parent_concept", "") for c in concepts if c.get("parent_concept")]))
     
-    # 2. 生徒プロフィールの生成
-    for i in range(1, NUM_STUDENTS + 1):
-        persona = random.choice(PERSONAS)
+    population = [p["type"] for p in PERSONAS]
+    weights = [p["weight"] for p in PERSONAS]
+    
+    for i in range(NUM_STUDENTS):
+        assigned_persona = random.choices(population, weights=weights, k=1)[0]
         student = {
-            "student_id": f"STU_{i:03d}",
-            "name": f"生徒_{i}",
-            "persona": persona,
-            "domains": {
-                "good": random.choice(DOMAINS),
-                "bad": random.choice(DOMAINS)
-            } if persona == "分野特化型" else None,
-            "results": {}  # { global_c_id: is_correct }
+            "student_id": f"STU_{str(uuid.uuid4())[:8].upper()}",
+            "persona": assigned_persona,
+            "mastery_state": {} # Level 3概念の理解度状態を保持 (True/False)
         }
+        
+        # 分野特化型の場合、ランダムに得意/苦手な親概念を割り当て
+        if assigned_persona == "domain_biased" and len(all_parents) >= 2:
+            sampled = random.sample(all_parents, 2)
+            student["strong_domains"] = [sampled[0]]
+            student["weak_domains"] = [sampled[1]]
+            
+        # 生徒ごとに、各親概念（Level 3）の潜在的な理解状態を事前決定しておく
+        for parent in all_parents:
+            base_prob = get_base_probability(student, "knowledge_skill", parent)
+            # ベース確率が高いほど、その概念を「理解している（True）」可能性が高い
+            student["mastery_state"][parent] = random.random() < base_prob
+            
         students.append(student)
 
-    # 3. ログの生成ループ
-    base_time = datetime.now() - timedelta(days=30)
-    
-    # 時系列順（global_timeline_index順）にソートして解かせる
-    sorted_nodes = sorted(global_nodes.values(), key=lambda x: x.get("global_timeline_index", 0))
+    print(f"   👥 {NUM_STUDENTS}人のペルソナ付き生徒データを生成しました。")
+
+    # 3. 学習ログのシミュレーション
+    logs = []
+    base_time = datetime.now() - timedelta(days=30) # 過去30日間のログとする
 
     for student in students:
-        current_time = base_time
-        
-        for node in sorted_nodes:
-            c_id = node["global_c_id"]
-            domain = get_domain(node.get("mext_hierarchy", ""), node.get("bundle_name", ""))
-            competency = node.get("competency", "knowledge_skill")
-            prerequisites = node.get("prerequisite_concepts", [])
+        for q in questions:
+            q_num = q.get("question_number", "Unknown")
+            q_competency = q.get("competency", "knowledge_skill")
             
-            # ペルソナに基づくベース正答率
-            prob = calculate_base_probability(student['persona'], competency, domain, student['domains'])
+            # 問題に紐づく概念（Level 4）を取得
+            aligned_concept_names = q.get("aligned_concepts", [])
+            target_concept = None
+            for ac in aligned_concept_names:
+                if ac in concept_map:
+                    target_concept = concept_map[ac]
+                    break
             
-            # 🔗 【GNN-KT連動】本物の前提知識ネットワークに基づく連鎖エラー処理
+            if not target_concept:
+                continue
+
+            parent_concept = target_concept.get("parent_concept", "")
+            prerequisites = target_concept.get("prerequisite_concepts", [])
+
+            # ① ペルソナに基づくベース正答率
+            prob = get_base_probability(student, q_competency, parent_concept)
+
+            # ② 🌟 GNN-KT 連鎖ペナルティの適用
             for prereq in prerequisites:
-                # 💡 辞書型（Ver 12.0新形式）と文字列型（旧形式）の混在を安全に処理
-                if isinstance(prereq, dict):
-                    p_name = prereq.get("concept_name")
-                    p_type = prereq.get("dependency_type", "mandatory")
-                else:
-                    p_name = str(prereq)
-                    p_type = "mandatory" # 単なる文字列の場合は安全のため「必須前提」として処理
+                prereq_name = prereq.get("concept_name")
+                dep_type = prereq.get("dependency_type", "supplementary")
                 
-                # DB内に存在する前提知識のIDを取得
-                p_id = name_to_id.get(p_name)
-                
-                # もし過去にその前提知識を解いていて、かつ「不正解」だった場合
-                if p_id and p_id in student['results'] and not student['results'][p_id]:
-                    if p_type == 'mandatory':
-                        prob *= 0.2  # 必須前提が抜けているとほぼ解けない
+                # 生徒がこの前提知識（Level 3）を理解していない場合、ペナルティ発動
+                is_mastered = student["mastery_state"].get(prereq_name, True)
+                if not is_mastered:
+                    if dep_type == "mandatory":
+                        prob *= 0.1 # 必須前提が抜けているとほぼ解けない
                     else:
-                        prob *= 0.6  # 補足前提が抜けているとミスしやすい
+                        prob *= 0.7 # 補足前提が抜けていると少し苦戦する
 
-            # 最終的な正誤判定
+            # ③ 正誤の判定
             is_correct = random.random() < prob
-            student['results'][c_id] = is_correct
             
-            # ログレコードの作成
-            log_record = {
-                "log_id": f"LOG_{student['student_id']}_{c_id[-8:]}", 
-                "student_id": student['student_id'],
-                "global_c_id": c_id,
-                "concept_name": node.get("concept_name", ""),
-                "branch_code": node.get("branch_code", ""),
-                "mext_code": node.get("mext_code", ""),
-                "competency": competency,
+            # 解答時間のシミュレーション (正解＝早い、不正解＝時間がかかる傾向)
+            time_taken = random.randint(30, 120) if is_correct else random.randint(90, 300)
+            
+            log_entry = {
+                "log_id": str(uuid.uuid4()),
+                "student_id": student["student_id"],
+                "persona": student["persona"],
+                "question_number": q_num,
+                "aligned_concept": target_concept.get("concept_name"),
+                "parent_concept": parent_concept,
+                "competency": q_competency,
                 "is_correct": is_correct,
-                "time_spent_seconds": random.randint(15, 120) if is_correct else random.randint(30, 300),
-                "timestamp": current_time.isoformat()
+                "time_taken_sec": time_taken,
+                "timestamp": (base_time + timedelta(days=random.randint(0, 30), minutes=random.randint(0, 1440))).isoformat()
             }
-            all_logs.append(log_record)
-            
-            # 次の問題を解くまでの時間を進める
-            current_time += timedelta(minutes=random.randint(5, 60))
+            logs.append(log_entry)
 
-    # 4. JSONファイルへの出力
+    # 4. JSON保存
+    # 時間順にソート
+    logs.sort(key=lambda x: x["timestamp"])
+    
     output_data = {
         "metadata": {
             "generated_at": datetime.now().isoformat(),
-            "num_students": NUM_STUDENTS,
-            "total_logs": len(all_logs),
-            "source_db": DB_FILE
+            "total_students": NUM_STUDENTS,
+            "total_logs": len(logs)
         },
-        "student_profiles": [
-            {
-                "student_id": s["student_id"], 
-                "persona": s["persona"], 
-                "domain_traits": s["domains"]
-            } for s in students
-        ],
-        "logs": all_logs
+        "logs": logs
     }
 
-    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+    with open(OUTPUT_LOG_FILE, "w", encoding="utf-8") as f:
         json.dump(output_data, f, ensure_ascii=False, indent=2)
 
-    print(f"🎉 ダミーログの生成が完了しました！")
-    print(f"📄 出力先: {OUTPUT_FILE} (ログ件数: {len(all_logs)}件)")
+    print(f"🎉 シミュレーション完了！")
+    print(f"   📊 生成されたログ数: {len(logs)} 件")
+    print(f"   💾 保存先: {OUTPUT_LOG_FILE}")
 
 if __name__ == "__main__":
-    generate_logs()
+    main()
